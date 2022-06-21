@@ -1,14 +1,12 @@
-import { placeholderItemTemplate, list } from './List.js'
-
+import { placeholderItemTemplate, list } from './List.js';
 export default class PlaceholderItem {
-  constructor() {
-    this.element =
-      placeholderItemTemplate.cloneNode(true).content.firstElementChild
-
-    list.appendChild(this.element)
-  }
-
-  remove() {
-    this.element.remove()
-  }
+    element;
+    constructor() {
+        const placeholderItemTemplateClone = placeholderItemTemplate.cloneNode(true);
+        this.element = placeholderItemTemplateClone.content.firstElementChild;
+        list.appendChild(this.element);
+    }
+    remove() {
+        this.element.remove();
+    }
 }
