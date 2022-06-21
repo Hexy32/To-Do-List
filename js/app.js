@@ -1,5 +1,13 @@
 import List from './List.js';
+import Input from './Input.js';
 const list = new List();
-list.createItem('hi');
 console.log(list);
-console.log(list.totalItems[0].id);
+const input = new Input();
+input.element.addEventListener('keydown', handleInput);
+function handleInput(e) {
+    if (e.key !== 'Enter')
+        return;
+    e.preventDefault();
+    list.createItem(input.value);
+    input.value = '';
+}
