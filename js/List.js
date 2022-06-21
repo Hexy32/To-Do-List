@@ -31,6 +31,7 @@ export default class List {
     createItem(content, id, isStarred, isDone) {
         this.removeBlankItem();
         const item = new Item(content, id, isStarred, isDone);
+        this.setupDelete(item);
         this.items.push(item);
     }
     removeBlankItem() {
@@ -39,9 +40,18 @@ export default class List {
             this.placeholderItems.pop().remove();
         }
     }
-    get totalItemsLength() {
-        const totalItems = [].concat(this.items, this.placeholderItems);
-        return totalItems.length;
+    deleteItem(item) {
+        item.remove();
+        const index = this.items.findIndex((i) => {
+            return i.id === item.id;
+        });
+        this.items.splice(index, 1);
+        this.createBlankItem();
+    }
+    setupDelete(item) {
+        item.delete.addEventListener('click', () => {
+            this.deleteItem(item);
+        });
     }
     createBlankItems() {
         const numberOfBlanks = this.items == undefined
@@ -51,5 +61,15 @@ export default class List {
             const placeholderItem = new PlaceholderItem();
             this.placeholderItems.push(placeholderItem);
         }
+    }
+    createBlankItem() {
+        if (this.itemsPerPage < this.totalItemsLength + 1)
+            return;
+        const placeholderItem = new PlaceholderItem();
+        this.placeholderItems.push(placeholderItem);
+    }
+    get totalItemsLength() {
+        const totalItems = [].concat(this.items, this.placeholderItems);
+        return totalItems.length;
     }
 }

@@ -46,6 +46,7 @@ export default class List {
     this.removeBlankItem()
 
     const item = new Item(content, id, isStarred, isDone)
+    this.setupDelete(item)
     this.items.push(item)
   }
 
@@ -58,9 +59,20 @@ export default class List {
     }
   }
 
-  get totalItemsLength() {
-    const totalItems = [].concat(this.items, this.placeholderItems)
-    return totalItems.length
+  deleteItem(item: Item) {
+    item.remove()
+    const index = this.items.findIndex((i) => {
+      return i.id === item.id
+    })
+
+    this.items.splice(index, 1)
+    this.createBlankItem()
+  }
+
+  setupDelete(item: Item) {
+    item.delete.addEventListener('click', () => {
+      this.deleteItem(item)
+    })
   }
 
   createBlankItems() {
@@ -73,5 +85,16 @@ export default class List {
       const placeholderItem = new PlaceholderItem()
       this.placeholderItems.push(placeholderItem)
     }
+  }
+
+  createBlankItem() {
+    if (this.itemsPerPage < this.totalItemsLength + 1) return
+    const placeholderItem = new PlaceholderItem()
+    this.placeholderItems.push(placeholderItem)
+  }
+
+  get totalItemsLength() {
+    const totalItems = [].concat(this.items, this.placeholderItems)
+    return totalItems.length
   }
 }
