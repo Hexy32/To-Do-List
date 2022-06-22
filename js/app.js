@@ -9,6 +9,23 @@ input.element.addEventListener('keydown', (e) => {
     list.createItem(input.value, null, input.isStarred);
     input.clear();
 });
-list.createItem('Hello');
+window.addEventListener('click', () => {
+    updateStats();
+});
+window.addEventListener('keydown', () => {
+    updateStats();
+});
+window.addEventListener('DOMContentLoaded', () => {
+    updateStats();
+});
+function updateStats() {
+    const todoItems = document.getElementById('todo-items');
+    const completedItems = document.getElementById('completed-items');
+    const totalItems = document.getElementById('total-items');
+    todoItems.textContent = JSON.stringify(list.todoItems);
+    completedItems.textContent = JSON.stringify(list.completedItems);
+    totalItems.textContent = JSON.stringify(list.totalItems);
+}
+list.createItem('Hello person watching my stream');
 console.log(list);
 console.log(input);

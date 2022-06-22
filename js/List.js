@@ -102,4 +102,19 @@ export default class List {
         const totalItems = [].concat(this.items, this.placeholderItems);
         return totalItems.length;
     }
+    get totalItems() {
+        return this.items.length;
+    }
+    get completedItems() {
+        let x = 0;
+        this.items.forEach((item) => {
+            if (item.isDone !== true)
+                return;
+            x++;
+        });
+        return x;
+    }
+    get todoItems() {
+        return this.totalItems - this.completedItems;
+    }
 }
