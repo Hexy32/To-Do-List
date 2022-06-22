@@ -34,6 +34,7 @@ export default class List {
         const item = new Item(content, id, isStarred, isDone);
         this.appendItem(item);
         this.setupDelete(item);
+        this.setupStar(item);
     }
     appendItem(item) {
         if (this.items.length == 0 || item.isStarred) {
@@ -63,6 +64,22 @@ export default class List {
         item.delete.addEventListener('click', () => {
             this.deleteItem(item);
         });
+    }
+    setupStar(item) {
+        item.starEmpty.addEventListener('click', () => {
+            this.starItem(item);
+        });
+        item.star.addEventListener('click', () => {
+            this.unStarItem(item);
+        });
+    }
+    starItem(item) {
+        this.createItem(item.content, null, item.isStarred, item.isDone);
+        this.deleteItem(item);
+    }
+    unStarItem(item) {
+        this.deleteItem(item);
+        this.createItem(item.content, null, item.isStarred, item.isDone);
     }
     createBlankItems() {
         const numberOfBlanks = this.items == undefined

@@ -48,6 +48,8 @@ export default class List {
     this.appendItem(item)
 
     this.setupDelete(item)
+
+    this.setupStar(item)
   }
 
   private appendItem(item: Item) {
@@ -86,6 +88,27 @@ export default class List {
     item.delete.addEventListener('click', () => {
       this.deleteItem(item)
     })
+  }
+
+  setupStar(item: Item) {
+    item.starEmpty.addEventListener('click', () => {
+      this.starItem(item)
+    })
+    item.star.addEventListener('click', () => {
+      this.unStarItem(item)
+    })
+  }
+
+  starItem(item: Item) {
+    this.createItem(item.content, null, item.isStarred, item.isDone)
+
+    this.deleteItem(item)
+  }
+
+  unStarItem(item: Item) {
+    this.deleteItem(item)
+
+    this.createItem(item.content, null, item.isStarred, item.isDone)
   }
 
   createBlankItems() {
