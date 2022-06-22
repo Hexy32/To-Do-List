@@ -40,9 +40,13 @@ export default class List {
   createItem(
     content: string,
     id?: string,
-    isStarred?: boolean,
-    isDone?: boolean
+    isStarred: boolean = false,
+    isDone: boolean = false
   ) {
+    if (id == null) {
+      id = JSON.stringify(Date.now())
+    }
+
     this.removeBlankItem()
 
     const item = new Item(content, id, isStarred, isDone)

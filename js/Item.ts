@@ -13,10 +13,10 @@ export default class Item {
   #deleteSVG: HTMLImageElement
 
   constructor(
-    content,
-    id = JSON.stringify(Date.now()),
-    isStarred = false,
-    isDone = false
+    content: string,
+    id: string,
+    isStarred: boolean,
+    isDone: boolean
   ) {
     this.content = content
     this.id = id

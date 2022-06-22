@@ -28,7 +28,10 @@ export default class List {
             this.createBlankItems();
         }
     }
-    createItem(content, id, isStarred, isDone) {
+    createItem(content, id, isStarred = false, isDone = false) {
+        if (id == null) {
+            id = JSON.stringify(Date.now());
+        }
         this.removeBlankItem();
         const item = new Item(content, id, isStarred, isDone);
         this.setupDelete(item);

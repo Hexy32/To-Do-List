@@ -10,7 +10,7 @@ export default class Item {
     #emptyStarSVG;
     #starSVG;
     #deleteSVG;
-    constructor(content, id = JSON.stringify(Date.now()), isStarred = false, isDone = false) {
+    constructor(content, id, isStarred, isDone) {
         this.content = content;
         this.id = id;
         this.isStarred = isStarred;
