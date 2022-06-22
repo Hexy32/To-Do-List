@@ -1,4 +1,6 @@
-import { placeholderItemTemplate, list } from './List.js'
+const placeholderItemTemplate = document.getElementById(
+  'placeholder-item'
+) as HTMLTemplateElement
 
 export default class PlaceholderItem {
   element: any
@@ -7,8 +9,6 @@ export default class PlaceholderItem {
       true
     ) as HTMLTemplateElement
     this.element = placeholderItemTemplateClone.content.firstElementChild
-
-    list.appendChild(this.element)
   }
 
   remove() {

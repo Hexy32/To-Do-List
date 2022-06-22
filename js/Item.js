@@ -1,4 +1,4 @@
-import { itemTemplate, list } from './List.js';
+const itemTemplate = document.getElementById('item');
 export default class Item {
     content;
     id;
@@ -29,7 +29,6 @@ export default class Item {
         this.element.id = this.id;
         this.#setStarred();
         this.#setDone();
-        list.prepend(this.element);
         this.setupInput();
     }
     #setStarred() {

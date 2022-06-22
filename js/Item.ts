@@ -1,4 +1,4 @@
-import { itemTemplate, list } from './List.js'
+const itemTemplate = document.getElementById('item') as HTMLTemplateElement
 
 export default class Item {
   content: any
@@ -44,7 +44,7 @@ export default class Item {
     this.#setStarred()
     this.#setDone()
 
-    list.prepend(this.element)
+    // list.prepend(this.element)
 
     this.setupInput()
   }

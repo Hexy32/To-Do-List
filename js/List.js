@@ -1,8 +1,6 @@
 import PlaceholderItem from './PlaceholderItem.js';
 import Item from './Item.js';
-export const itemTemplate = document.getElementById('item');
-export const placeholderItemTemplate = document.getElementById('placeholder-item');
-export const list = document.getElementById('list');
+const HTMLlist = document.getElementById('list');
 export default class List {
     itemsPerPage;
     placeholderItems;
@@ -34,7 +32,17 @@ export default class List {
         }
         this.removeBlankItem();
         const item = new Item(content, id, isStarred, isDone);
+        this.appendItem(item);
         this.setupDelete(item);
+    }
+    appendItem(item) {
+        if (this.items.length == 0 || item.isStarred) {
+            HTMLlist.prepend(item.element);
+            this.items.unshift(item);
+            return;
+        }
+        const lastItemElement = this.items[this.items.length - 1].element;
+        lastItemElement.insertAdjacentElement('afterend', item.element);
         this.items.push(item);
     }
     removeBlankItem() {
@@ -62,6 +70,7 @@ export default class List {
             : this.itemsPerPage - this.items.length;
         for (let i = 0; i < numberOfBlanks; i++) {
             const placeholderItem = new PlaceholderItem();
+            HTMLlist.append(placeholderItem.element);
             this.placeholderItems.push(placeholderItem);
         }
     }
@@ -69,6 +78,7 @@ export default class List {
         if (this.itemsPerPage < this.totalItemsLength + 1)
             return;
         const placeholderItem = new PlaceholderItem();
+        HTMLlist.append(placeholderItem.element);
         this.placeholderItems.push(placeholderItem);
     }
     get totalItemsLength() {
