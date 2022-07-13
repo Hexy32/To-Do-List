@@ -8,7 +8,7 @@ input.element.addEventListener('keydown', (e) => {
   if (e.key !== 'Enter') return
   e.preventDefault()
 
-  list.createItem(input.value, null, input.isStarred)
+  list.createItem(input.value, undefined, input.isStarred)
 
   input.clear()
 })
@@ -20,7 +20,9 @@ window.addEventListener('keydown', () => {
   updateStats()
 })
 window.addEventListener('DOMContentLoaded', () => {
+  list.pullFromLocalStorage()
   updateStats()
+  console.log('LOADED!')
 })
 
 function updateStats() {
@@ -33,8 +35,8 @@ function updateStats() {
   todoItems.textContent = JSON.stringify(list.todoItems)
   completedItems.textContent = JSON.stringify(list.completedItems)
   totalItems.textContent = JSON.stringify(list.totalItems)
+  list.pushToLocalStorage()
 }
 
-list.createItem('Hello person watching my stream')
-console.log(list)
-console.log(input)
+// list.createItem('Hello person watching my stream', undefined, false, true)
+// list.createItem('codder :nerd:', undefined, true, true)

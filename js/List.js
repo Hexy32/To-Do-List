@@ -11,24 +11,21 @@ export default class List {
         this.items = [];
         if (items != null) {
             this.items = items;
-            this.addItems(this.items);
+            this.createItems(this.items);
         }
         else {
             this.createBlankItems();
         }
     }
-    addItems(items) {
+    createItems(items) {
         items.forEach((item) => {
             this.removeBlankItem();
             this.createItem(item.content, item.id, item.isStarred, item.isDone);
         });
-        if (this.items.length < this.itemsPerPage) {
-            this.createBlankItems();
-        }
     }
     createItem(content, id, isStarred = false, isDone = false) {
         if (id == null) {
-            id = JSON.stringify(Date.now());
+            id = `ID${Date.now()}`;
         }
         this.removeBlankItem();
         const item = new Item(content, id, isStarred, isDone);
@@ -74,12 +71,12 @@ export default class List {
         });
     }
     starItem(item) {
-        this.createItem(item.content, null, item.isStarred, item.isDone);
+        this.createItem(item.content, undefined, item.isStarred, item.isDone);
         this.deleteItem(item);
     }
     unStarItem(item) {
         this.deleteItem(item);
-        this.createItem(item.content, null, item.isStarred, item.isDone);
+        this.createItem(item.content, undefined, item.isStarred, item.isDone);
     }
     createBlankItems() {
         const numberOfBlanks = this.items == undefined
@@ -98,9 +95,24 @@ export default class List {
         HTMLlist.append(placeholderItem.element);
         this.placeholderItems.push(placeholderItem);
     }
+    pushToLocalStorage() {
+        const data = JSON.stringify(this.items);
+        localStorage.setItem('listData', data);
+    }
+    pullFromLocalStorage() {
+        const rawData = localStorage.getItem('listData');
+        const data = JSON.parse(rawData);
+        const listElem = document.getElementById('list');
+        if (data.length != 0) {
+            data.forEach((item) => {
+                item.element = listElem.querySelector(`#${item.id}`);
+            });
+            this.createItems(data);
+            console.log(data);
+        }
+    }
     get totalItemsLength() {
-        const totalItems = [].concat(this.items, this.placeholderItems);
-        return totalItems.length;
+        return this.items.length + this.placeholderItems.length;
     }
     get totalItems() {
         return this.items.length;

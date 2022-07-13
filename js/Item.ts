@@ -5,12 +5,12 @@ export default class Item {
   id: string
   isStarred: boolean
   isDone: boolean
-  element: any
-  #emptyCheckboxSVG: HTMLImageElement
-  #checkboxSVG: HTMLImageElement
-  #emptyStarSVG: HTMLImageElement
-  #starSVG: HTMLImageElement
-  #deleteSVG: HTMLImageElement
+  element!: HTMLLIElement
+  #emptyCheckboxSVG!: HTMLImageElement
+  #checkboxSVG!: HTMLImageElement
+  #emptyStarSVG!: HTMLImageElement
+  #starSVG!: HTMLImageElement
+  #deleteSVG!: HTMLImageElement
 
   constructor(
     content: string,
@@ -30,22 +30,27 @@ export default class Item {
     const itemTemplateClone = itemTemplate.cloneNode(
       true
     ) as HTMLTemplateElement
-    this.element = itemTemplateClone.content.firstElementChild
+    this.element = itemTemplateClone.content.firstElementChild as HTMLLIElement
 
-    this.#emptyCheckboxSVG = this.element.querySelector('.checkbox-empty')
-    this.#checkboxSVG = this.element.querySelector('.checkbox')
-    this.#emptyStarSVG = this.element.querySelector('.star-empty')
-    this.#starSVG = this.element.querySelector('.star')
-    this.#deleteSVG = this.element.querySelector('.deleteSVG')
+    this.#emptyCheckboxSVG = this.element.querySelector(
+      '.checkbox-empty'
+    ) as HTMLImageElement
+    this.#checkboxSVG = this.element.querySelector(
+      '.checkbox'
+    ) as HTMLImageElement
+    this.#emptyStarSVG = this.element.querySelector(
+      '.star-empty'
+    ) as HTMLImageElement
+    this.#starSVG = this.element.querySelector('.star') as HTMLImageElement
+    this.#deleteSVG = this.element.querySelector(
+      '.deleteSVG'
+    ) as HTMLImageElement
 
-    this.element.querySelector('.content').textContent = this.content
+    this.element.querySelector('.content')!.textContent = this.content
     this.element.id = this.id
 
     this.#setStarred()
     this.#setDone()
-
-    // list.prepend(this.element)
-
     this.setupInput()
   }
 

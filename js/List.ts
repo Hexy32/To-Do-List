@@ -15,20 +15,17 @@ export default class List {
 
     if (items != null) {
       this.items = items
-      this.addItems(this.items)
+      this.createItems(this.items)
     } else {
       this.createBlankItems()
     }
   }
 
-  addItems(items: Item[]) {
+  createItems(items: Item[]) {
     items.forEach((item: Item) => {
       this.removeBlankItem()
       this.createItem(item.content, item.id, item.isStarred, item.isDone)
     })
-    if (this.items.length < this.itemsPerPage) {
-      this.createBlankItems()
-    }
   }
 
   createItem(
@@ -38,7 +35,7 @@ export default class List {
     isDone: boolean = false
   ) {
     if (id == null) {
-      id = JSON.stringify(Date.now())
+      id = `ID${Date.now()}`
     }
 
     this.removeBlankItem()
@@ -54,7 +51,7 @@ export default class List {
 
   private appendItem(item: Item) {
     if (this.items.length == 0 || item.isStarred) {
-      HTMLlist.prepend(item.element)
+      HTMLlist!.prepend(item.element)
       this.items.unshift(item)
       return
     }
@@ -70,7 +67,7 @@ export default class List {
       this.totalItemsLength >= this.itemsPerPage &&
       this.placeholderItems.length > 0
     ) {
-      this.placeholderItems.pop().remove()
+      this.placeholderItems.pop()!.remove()
     }
   }
 
@@ -100,7 +97,7 @@ export default class List {
   }
 
   starItem(item: Item) {
-    this.createItem(item.content, null, item.isStarred, item.isDone)
+    this.createItem(item.content, undefined, item.isStarred, item.isDone)
 
     this.deleteItem(item)
   }
@@ -108,7 +105,7 @@ export default class List {
   unStarItem(item: Item) {
     this.deleteItem(item)
 
-    this.createItem(item.content, null, item.isStarred, item.isDone)
+    this.createItem(item.content, undefined, item.isStarred, item.isDone)
   }
 
   createBlankItems() {
@@ -119,7 +116,7 @@ export default class List {
 
     for (let i = 0; i < numberOfBlanks; i++) {
       const placeholderItem = new PlaceholderItem()
-      HTMLlist.append(placeholderItem.element)
+      HTMLlist!.append(placeholderItem.element)
       this.placeholderItems.push(placeholderItem)
     }
   }
@@ -127,13 +124,32 @@ export default class List {
   createBlankItem() {
     if (this.itemsPerPage < this.totalItemsLength + 1) return
     const placeholderItem = new PlaceholderItem()
-    HTMLlist.append(placeholderItem.element)
+    HTMLlist!.append(placeholderItem.element)
     this.placeholderItems.push(placeholderItem)
   }
 
+  pushToLocalStorage() {
+    const data = JSON.stringify(this.items)
+    localStorage.setItem('listData', data)
+  }
+
+  pullFromLocalStorage() {
+    const rawData = localStorage.getItem('listData')
+    const data: Item[] = JSON.parse(rawData!)
+    const listElem = document.getElementById('list') as HTMLUListElement
+
+    if (data.length != 0) {
+      data.forEach((item) => {
+        item.element = listElem.querySelector(`#${item.id}`) as HTMLLIElement
+      })
+
+      this.createItems(data)
+      console.log(data)
+    }
+  }
+
   get totalItemsLength() {
-    const totalItems = [].concat(this.items, this.placeholderItems)
-    return totalItems.length
+    return this.items.length + this.placeholderItems.length
   }
 
   get totalItems() {
