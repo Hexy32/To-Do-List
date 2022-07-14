@@ -22,7 +22,6 @@ window.addEventListener('keydown', () => {
 window.addEventListener('DOMContentLoaded', () => {
   list.pullFromLocalStorage()
   updateStats()
-  console.log('LOADED!')
 })
 
 function updateStats() {
@@ -37,6 +36,3 @@ function updateStats() {
   totalItems.textContent = JSON.stringify(list.totalItems)
   list.pushToLocalStorage()
 }
-
-// list.createItem('Hello person watching my stream', undefined, false, true)
-// list.createItem('codder :nerd:', undefined, true, true)

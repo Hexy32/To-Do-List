@@ -18,7 +18,6 @@ window.addEventListener('keydown', () => {
 window.addEventListener('DOMContentLoaded', () => {
     list.pullFromLocalStorage();
     updateStats();
-    console.log('LOADED!');
 });
 function updateStats() {
     const todoItems = document.getElementById('todo-items');

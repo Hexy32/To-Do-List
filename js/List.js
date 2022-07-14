@@ -5,17 +5,12 @@ export default class List {
     itemsPerPage;
     placeholderItems;
     items;
-    constructor(items, itemsPerPage = 6) {
+    constructor(itemsPerPage = 6) {
         this.itemsPerPage = itemsPerPage;
+        document.documentElement.style.setProperty('--total-items', itemsPerPage.toString());
         this.placeholderItems = [];
         this.items = [];
-        if (items != null) {
-            this.items = items;
-            this.createItems(this.items);
-        }
-        else {
-            this.createBlankItems();
-        }
+        this.createBlankItems();
     }
     createItems(items) {
         items.forEach((item) => {
@@ -96,19 +91,30 @@ export default class List {
         this.placeholderItems.push(placeholderItem);
     }
     pushToLocalStorage() {
-        const data = JSON.stringify(this.items);
-        localStorage.setItem('listData', data);
+        const rawData = JSON.stringify(this.items);
+        localStorage.setItem('listData', rawData);
+        window.location.hash = rawData.toString();
     }
     pullFromLocalStorage() {
+        let data;
         const rawData = localStorage.getItem('listData');
-        const data = JSON.parse(rawData);
         const listElem = document.getElementById('list');
+        const URLRawData = decodeURI(window.location.hash);
+        if (URLRawData.slice(1)) {
+            data = JSON.parse(URLRawData.slice(1));
+            console.log('Loaded from URL');
+        }
+        else {
+            data = JSON.parse(rawData);
+            console.log('Loaded from LocalStorage');
+        }
         if (data.length != 0) {
             data.forEach((item) => {
                 item.element = listElem.querySelector(`#${item.id}`);
             });
+            window.location.hash = rawData.toString();
             this.createItems(data);
-            console.log(data);
+            console.log(`Loaded rawData:`, rawData, `parsed as`, data);
         }
     }
     get totalItemsLength() {

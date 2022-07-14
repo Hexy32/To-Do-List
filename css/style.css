@@ -289,17 +289,17 @@ button {
   padding: 10px;
   border-radius: var(--border-radius);
   display: flex;
-  box-shadow: 0 3px 0 0 rgba(128, 128, 128, 0.526);
-  cursor: pointer;
+  /* box-shadow: 0 3px 0 0 rgba(128, 128, 128, 0.526); */
+  /* cursor: pointer; */
   transition: 150ms ease;
 }
 
-.info:hover {
+/* .info:hover {
   background-color: rgba(254, 254, 254, 0.55);
   box-shadow: none;
   transform: scale(0.98);
   transform: translateY(3px);
-}
+} */
 
 .clicked-button {
   background-color: rgba(254, 254, 254, 0.55);
