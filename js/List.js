@@ -93,7 +93,7 @@ export default class List {
     pushToLocalStorage() {
         const rawData = JSON.stringify(this.items);
         localStorage.setItem('listData', rawData);
-        window.location.hash = rawData.toString();
+        window.location.hash = encodeURI(rawData.toString());
     }
     pullFromLocalStorage() {
         let data;
@@ -104,9 +104,13 @@ export default class List {
             data = JSON.parse(URLRawData.slice(1));
             console.log('Loaded from URL');
         }
-        else {
+        else if (rawData) {
             data = JSON.parse(rawData);
             console.log('Loaded from LocalStorage');
+        }
+        else {
+            console.log('No data to load');
+            return;
         }
         if (data.length != 0) {
             data.forEach((item) => {
@@ -115,7 +119,9 @@ export default class List {
             window.location.hash = rawData.toString();
             this.createItems(data);
             console.log(`Loaded rawData:`, rawData, `parsed as`, data);
+            return;
         }
+        console.log('No data to load');
     }
     get totalItemsLength() {
         return this.items.length + this.placeholderItems.length;

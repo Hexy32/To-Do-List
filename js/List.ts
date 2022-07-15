@@ -130,7 +130,7 @@ export default class List {
   pushToLocalStorage() {
     const rawData = JSON.stringify(this.items)
     localStorage.setItem('listData', rawData)
-    window.location.hash = rawData!.toString()
+    window.location.hash = encodeURI(rawData!.toString())
   }
 
   pullFromLocalStorage() {
@@ -139,12 +139,15 @@ export default class List {
     const listElem = document.getElementById('list') as HTMLUListElement
     const URLRawData = decodeURI(window.location.hash)
 
-    if (URLRawData!.slice(1)) {
-      data = JSON.parse(URLRawData!.slice(1))
+    if (URLRawData.slice(1)) {
+      data = JSON.parse(URLRawData.slice(1))
       console.log('Loaded from URL')
-    } else {
-      data = JSON.parse(rawData!)
+    } else if (rawData) {
+      data = JSON.parse(rawData)
       console.log('Loaded from LocalStorage')
+    } else {
+      console.log('No data to load')
+      return
     }
 
     if (data.length != 0) {
@@ -156,7 +159,9 @@ export default class List {
       this.createItems(data)
 
       console.log(`Loaded rawData:`, rawData, `parsed as`, data)
+      return
     }
+    console.log('No data to load')
   }
 
   get totalItemsLength() {
