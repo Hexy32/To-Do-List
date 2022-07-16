@@ -11,10 +11,11 @@
 
   <body>
     <ul class="tabs">
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
+      <li class="selected tab-completed">
+        <img src="./svgs/edit.svg" alt="edit" id="edit">
+        <input type="text">
+        <img src="./svgs/close.svg" alt="close" id="close">
+      </li>
       <li class="add-tab">+</li>
     </ul>
     <div class="content-wrapper">
@@ -35,11 +36,20 @@
           <span>Total Items: </span>
           <span id="total-items">0</span>
         </p>
+        <p class="info clear-button" id="clear-button">
+          <span>Clear List</span>
+        </p>
       </div>
       <ul id="list" class="todo-items">
-      </li>
-    </ul>
+      </ul>
   </div>
+  <template>
+    <li>
+      <img src="./svgs/edit.svg" alt="edit" id="edit">
+      <input type="text">
+      <img src="./svgs/close.svg" alt="close" id="close">
+    </li>
+  </template>
   <template id="item">
     <li class="item">
       <img src="./svgs/check_box_outline_blank_black_24dp.svg" alt="Mark as complete" class="checkbox-empty">

@@ -1,7 +1,9 @@
 import List from './List/List.js'
 import Input from './Input/Input.js'
 
-export const list = new List()
+const clearButton = document.getElementById('clear-button') as HTMLSpanElement
+
+export let list = new List()
 const input = new Input()
 
 input.element.addEventListener('keydown', (e) => {
@@ -13,16 +15,13 @@ input.element.addEventListener('keydown', (e) => {
   input.clear()
 })
 
-window.addEventListener('click', () => {
+update()
+function update() {
   updateStats()
-})
-window.addEventListener('keydown', () => {
-  updateStats()
-})
-window.addEventListener('DOMContentLoaded', () => {
-  list.pullFromLocalStorage()
-  updateStats()
-})
+  setTimeout(update, 200)
+}
+
+clearButton.addEventListener('click', clearList)
 
 function updateStats() {
   const todoItems = document.getElementById('todo-items') as HTMLSpanElement
@@ -34,5 +33,11 @@ function updateStats() {
   todoItems.textContent = JSON.stringify(list.todoItems)
   completedItems.textContent = JSON.stringify(list.completedItems)
   totalItems.textContent = JSON.stringify(list.totalItems)
-  list.pushToLocalStorage()
+  list.saveData()
+}
+
+function clearList() {
+  list.remove()
+  list = new List(false)
+  console.log('List successfully created!', list)
 }

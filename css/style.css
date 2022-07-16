@@ -182,12 +182,16 @@ body {
   border-radius: 0 0 10px 10px;
   display: grid;
   grid-template:
-    'header header header header header'
-    'input items items items items';
+    'header header'
+    'input items';
+
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 1fr 6fr;
+
   gap: 30px;
   width: 100%;
   max-width: 70rem;
-  height: max-content;
+  height: min-content;
   position: relative;
 }
 
@@ -245,6 +249,15 @@ header {
 
 .info > *:last-child {
   margin-left: auto;
+}
+
+.info.clear-button {
+  cursor: pointer;
+}
+
+.info.clear-button > * {
+  text-align: center;
+  margin: auto;
 }
 
 /* LIST ITEM STYLES */
@@ -365,6 +378,7 @@ button {
 .tabs {
   display: flex;
   width: 100%;
+  height: 45px;
   max-width: 1120px;
   list-style: none;
   gap: 2px;
@@ -376,11 +390,51 @@ button {
   background-color: var(--box-color);
   text-align: center;
   border-radius: var(--border-radius) var(--border-radius) 0 0;
-  padding: 5px;
   flex-grow: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.tab-completed {
+  background-color: var(--box-color);
+  background: linear-gradient(
+    0deg,
+    rgba(236, 236, 236, 0.33) 0%,
+    rgba(39, 255, 6, 0.33) 50%
+  );
+}
+
+.selected {
+  border-bottom: 2px var(--box-color);
+  margin-bottom: -2px;
 }
 
 .add-tab {
-  width: fit-content;
+  width: 40px;
+  font-size: x-large;
   flex-grow: 0;
+  color: rgba(46, 46, 46, 0.747);
+}
+
+.tabs > * > input {
+  border: none;
+  background: none;
+  text-align: center;
+  font-family: initial;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  width: 100%;
+  pointer-events: none;
+}
+
+.tabs > * > input:focus {
+  outline: none;
+}
+
+.tabs > * > img {
+  width: 20px;
+  height: 20px;
 }

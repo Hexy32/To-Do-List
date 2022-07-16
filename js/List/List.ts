@@ -7,7 +7,7 @@ export default class List {
   itemsPerPage: number
   placeholderItems: PlaceholderItem[]
   items: Item[]
-  constructor(itemsPerPage = 6) {
+  constructor(load = true, itemsPerPage = 6) {
     this.itemsPerPage = itemsPerPage
     document.documentElement.style.setProperty(
       '--total-items',
@@ -18,6 +18,8 @@ export default class List {
     this.items = []
 
     this.createBlankItems()
+
+    if (load) this.loadData()
   }
 
   createItems(items: Item[]) {
@@ -127,13 +129,13 @@ export default class List {
     this.placeholderItems.push(placeholderItem)
   }
 
-  pushToLocalStorage() {
+  saveData() {
     const rawData = JSON.stringify(this.items)
     localStorage.setItem('listData', rawData)
     window.location.hash = encodeURI(rawData)
   }
 
-  pullFromLocalStorage() {
+  loadData() {
     let data: Item[]
     const rawData = localStorage.getItem('listData')
     const listElem = document.getElementById('list') as HTMLUListElement
@@ -190,5 +192,14 @@ export default class List {
 
   get todoItems() {
     return this.totalItems - this.completedItems
+  }
+
+  remove() {
+    this.items.forEach((item) => {
+      item.remove()
+    })
+    this.placeholderItems.forEach((placeholderItem) => {
+      placeholderItem.remove()
+    })
   }
 }

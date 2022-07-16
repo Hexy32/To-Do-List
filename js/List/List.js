@@ -5,12 +5,14 @@ export default class List {
     itemsPerPage;
     placeholderItems;
     items;
-    constructor(itemsPerPage = 6) {
+    constructor(load = true, itemsPerPage = 6) {
         this.itemsPerPage = itemsPerPage;
         document.documentElement.style.setProperty('--total-items', itemsPerPage.toString());
         this.placeholderItems = [];
         this.items = [];
         this.createBlankItems();
+        if (load)
+            this.loadData();
     }
     createItems(items) {
         items.forEach((item) => {
@@ -90,12 +92,12 @@ export default class List {
         HTMLlist.append(placeholderItem.element);
         this.placeholderItems.push(placeholderItem);
     }
-    pushToLocalStorage() {
+    saveData() {
         const rawData = JSON.stringify(this.items);
         localStorage.setItem('listData', rawData);
         window.location.hash = encodeURI(rawData);
     }
-    pullFromLocalStorage() {
+    loadData() {
         let data;
         const rawData = localStorage.getItem('listData');
         const listElem = document.getElementById('list');
@@ -142,5 +144,13 @@ export default class List {
     }
     get todoItems() {
         return this.totalItems - this.completedItems;
+    }
+    remove() {
+        this.items.forEach((item) => {
+            item.remove();
+        });
+        this.placeholderItems.forEach((placeholderItem) => {
+            placeholderItem.remove();
+        });
     }
 }
