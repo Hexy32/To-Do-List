@@ -1,4 +1,4 @@
-import { list } from './app.js'
+import { list } from '../app.js'
 
 const input = document.getElementById('input') as HTMLInputElement
 const emptyStarSVG = document.querySelectorAll(

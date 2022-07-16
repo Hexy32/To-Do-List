@@ -1,5 +1,5 @@
-import PlaceholderItem from './PlaceholderItem.js'
-import Item from './Item.js'
+import PlaceholderItem from '../Items/PlaceholderItem.js'
+import Item from '../Items/Item.js'
 
 const HTMLlist = document.getElementById('list')
 
@@ -130,7 +130,7 @@ export default class List {
   pushToLocalStorage() {
     const rawData = JSON.stringify(this.items)
     localStorage.setItem('listData', rawData)
-    window.location.hash = encodeURI(rawData!.toString())
+    window.location.hash = encodeURI(rawData)
   }
 
   pullFromLocalStorage() {
@@ -141,10 +141,8 @@ export default class List {
 
     if (URLRawData.slice(1)) {
       data = JSON.parse(URLRawData.slice(1))
-      console.log('Loaded from URL')
     } else if (rawData) {
       data = JSON.parse(rawData)
-      console.log('Loaded from LocalStorage')
     } else {
       console.log('No data to load')
       return
@@ -155,10 +153,18 @@ export default class List {
         item.element = listElem.querySelector(`#${item.id}`) as HTMLLIElement
       })
 
-      window.location.hash = rawData!.toString()
+      if (rawData) {
+        window.location.hash = rawData
+      }
+
       this.createItems(data)
 
-      console.log(`Loaded rawData:`, rawData, `parsed as`, data)
+      console.log(`Loaded rawData:`, rawData ? rawData : `No localStorage data`)
+      console.log(`Loaded URLRawData:`, URLRawData ? URLRawData : `No URL data`)
+      console.log(
+        `Parsed ${URLRawData ? 'URL data' : 'localStorage data'} as`,
+        data
+      )
       return
     }
     console.log('No data to load')

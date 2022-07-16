@@ -1,5 +1,5 @@
-import List from './List.js';
-import Input from './Input.js';
+import List from './List/List.js';
+import Input from './Input/Input.js';
 export const list = new List();
 const input = new Input();
 input.element.addEventListener('keydown', (e) => {
