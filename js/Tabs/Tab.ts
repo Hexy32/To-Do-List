@@ -1,1 +1,5 @@
-export default class Tab {}
+export default class Tab {
+  constructor() {
+    const tabElement =
+  }
+}
