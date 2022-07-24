@@ -1,8 +1,11 @@
 import List from './List/List.js';
 import Input from './Input/Input.js';
+import TabList from './Tabs/TabList.js';
 const clearButton = document.getElementById('clear-button');
 export let list = new List();
 const input = new Input();
+const tabList = new TabList();
+console.log(tabList);
 input.element.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter')
         return;
@@ -26,7 +29,6 @@ function updateStats() {
     list.saveData();
 }
 function clearList() {
-    list.remove();
     list = new List(false);
     console.log('List successfully created!', list);
 }

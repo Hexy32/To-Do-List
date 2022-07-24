@@ -79,6 +79,7 @@ export default class Item {
         this.#setDone();
     }
     remove() {
+        this.element.classList.add('fade-out');
         this.element.remove();
     }
     setupInput() {

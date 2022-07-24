@@ -10,13 +10,8 @@
   </head>
 
   <body>
-    <ul class="tabs">
-      <li class="selected tab-completed">
-        <img src="./svgs/edit.svg" alt="edit" id="edit">
-        <input type="text">
-        <img src="./svgs/close.svg" alt="close" id="close">
-      </li>
-      <li class="add-tab">+</li>
+    <ul class="tabs" id="tabs">
+      <li class="add-tab grow" id="add-tab">+</li>
     </ul>
     <div class="content-wrapper">
       <header>Your To-Do List</header>
@@ -43,15 +38,15 @@
       <ul id="list" class="todo-items">
       </ul>
   </div>
-  <template>
+  <template id="tab">
     <li>
       <img src="./svgs/edit.svg" alt="edit" id="edit">
-      <input type="text">
+      <input type="text" id="tab-input">
       <img src="./svgs/close.svg" alt="close" id="close">
     </li>
   </template>
   <template id="item">
-    <li class="item">
+    <li class="item fade-in">
       <img src="./svgs/check_box_outline_blank_black_24dp.svg" alt="Mark as complete" class="checkbox-empty">
       <img style="display: none;" src="./svgs/check_box_black_24dp.svg" alt="Mark as complete" class="checkbox">
       <p class="content"></p>

@@ -1,4 +1,47 @@
-document.getElementById('');
+const tabTemplate = document.getElementById('tab');
 export default class Tab {
-    constructor() { }
+    element;
+    name;
+    #close;
+    #edit;
+    #input;
+    savedList;
+    constructor(name = 'Unnamed') {
+        this.name = name;
+        this.savedList = 'Placeholder';
+        this.createTab(name);
+    }
+    createTab(name) {
+        const tabTemplateClone = tabTemplate.cloneNode(true);
+        this.element = tabTemplateClone.content.firstElementChild;
+        this.#edit = this.element.querySelector('#edit');
+        this.#close = this.element.querySelector('#close');
+        this.#input = this.element.querySelector('#tab-input');
+        this.element.classList.add('grow');
+        this.select();
+        this.#input.value = name;
+        this.setupInput();
+    }
+    setupInput() {
+        this.#edit.addEventListener('click', () => {
+            this.#input.focus();
+        });
+        this.#close.addEventListener('click', () => {
+            this.remove();
+        });
+        this.#input.addEventListener('keydown', (e) => {
+            if (e.key == 'Enter') {
+                this.#input.blur();
+            }
+        });
+    }
+    select() {
+        this.element.classList.add('selected');
+    }
+    deselect() {
+        this.element.classList.remove('selected');
+    }
+    remove() {
+        this.element.remove();
+    }
 }

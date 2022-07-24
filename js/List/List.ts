@@ -1,5 +1,6 @@
 import PlaceholderItem from '../Items/PlaceholderItem.js'
 import Item from '../Items/Item.js'
+import { list } from '../app.js'
 
 const HTMLlist = document.getElementById('list')
 
@@ -7,7 +8,12 @@ export default class List {
   itemsPerPage: number
   placeholderItems: PlaceholderItem[]
   items: Item[]
+
   constructor(load = true, itemsPerPage = 6) {
+    if (HTMLlist!.childElementCount >= 1) {
+      list.remove()
+    }
+
     this.itemsPerPage = itemsPerPage
     document.documentElement.style.setProperty(
       '--total-items',

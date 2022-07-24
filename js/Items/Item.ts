@@ -1,7 +1,7 @@
 const itemTemplate = document.getElementById('item') as HTMLTemplateElement
 
 export default class Item {
-  content: any
+  content: string
   id: string
   isStarred: boolean
   isDone: boolean
@@ -109,7 +109,11 @@ export default class Item {
   }
 
   remove() {
+    this.element.classList.add('fade-out')
     this.element.remove()
+
+    /*     this.element.addEventListener('animationend', () => {
+    }) */
   }
 
   setupInput() {
