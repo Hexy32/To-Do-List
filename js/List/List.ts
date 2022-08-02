@@ -1,8 +1,9 @@
 import PlaceholderItem from '../Items/PlaceholderItem.js'
 import Item from '../Items/Item.js'
-import { list } from '../app.js'
+import { currentList as list } from '../Tabs/TabList.js'
 
 const HTMLlist = document.getElementById('list')
+const clearButton = document.getElementById('clear-button') as HTMLSpanElement
 
 export default class List {
   itemsPerPage: number
@@ -26,6 +27,10 @@ export default class List {
     this.createBlankItems()
 
     if (load) this.loadData()
+
+    clearButton.addEventListener('click', this.remove)
+    this.updateStats()
+    this.update()
   }
 
   createItems(items: Item[]) {
@@ -167,8 +172,6 @@ export default class List {
 
       this.createItems(data)
 
-      console.log(`Loaded rawData:`, rawData ? rawData : `No localStorage data`)
-      console.log(`Loaded URLRawData:`, URLRawData ? URLRawData : `No URL data`)
       console.log(
         `Parsed ${URLRawData ? 'URL data' : 'localStorage data'} as`,
         data
@@ -207,5 +210,23 @@ export default class List {
     this.placeholderItems.forEach((placeholderItem) => {
       placeholderItem.remove()
     })
+  }
+
+  updateStats() {
+    const todoItems = document.getElementById('todo-items') as HTMLSpanElement
+    const completedItems = document.getElementById(
+      'completed-items'
+    ) as HTMLSpanElement
+    const totalItems = document.getElementById('total-items') as HTMLSpanElement
+
+    todoItems.textContent = JSON.stringify(this.todoItems)
+    completedItems.textContent = JSON.stringify(this.completedItems)
+    totalItems.textContent = JSON.stringify(this.totalItems)
+    this.saveData()
+  }
+
+  update() {
+    this.updateStats()
+    setTimeout(() => this.update(), 200)
   }
 }

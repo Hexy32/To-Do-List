@@ -6,9 +6,9 @@ export default class Tab {
     #edit;
     #input;
     savedList;
-    constructor(name = 'Unnamed') {
+    constructor(name = 'Unnamed', list) {
         this.name = name;
-        this.savedList = 'Placeholder';
+        this.savedList = list;
         this.createTab(name);
     }
     createTab(name) {

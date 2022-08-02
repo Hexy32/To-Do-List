@@ -2,6 +2,9 @@ import List from '../List/List.js'
 import Tab from './Tab.js'
 
 const addTabButton = document.getElementById('add-tab') as HTMLLIElement
+const listElm = addTabButton.parentElement as HTMLUListElement
+
+export let currentList = new List()
 
 export default class TabList {
   tabs: Tab[] = []
@@ -19,16 +22,13 @@ export default class TabList {
       tab.deselect()
     })
 
-    const tab = new Tab()
-    console.log(tab)
+    const tab = new Tab(undefined, currentList)
     addTabButton.insertAdjacentElement('beforebegin', tab.element)
 
     this.tabs.push(tab)
   }
 
   currentTab() {
-    const tabListElm = addTabButton.parentElement as HTMLUListElement
-
-    return tabListElm.querySelector('.selected')
+    return listElm.querySelector('.selected')
   }
 }

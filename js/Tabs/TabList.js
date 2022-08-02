@@ -1,5 +1,8 @@
+import List from '../List/List.js';
 import Tab from './Tab.js';
 const addTabButton = document.getElementById('add-tab');
+const listElm = addTabButton.parentElement;
+export let currentList = new List();
 export default class TabList {
     tabs = [];
     constructor() {
@@ -12,13 +15,11 @@ export default class TabList {
         this.tabs.forEach((tab) => {
             tab.deselect();
         });
-        const tab = new Tab();
-        console.log(tab);
+        const tab = new Tab(undefined, currentList);
         addTabButton.insertAdjacentElement('beforebegin', tab.element);
         this.tabs.push(tab);
     }
     currentTab() {
-        const tabListElm = addTabButton.parentElement;
-        return tabListElm.querySelector('.selected');
+        return listElm.querySelector('.selected');
     }
 }

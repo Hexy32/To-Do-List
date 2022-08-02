@@ -1,10 +1,9 @@
-import { list } from '../app.js'
-
 const input = document.getElementById('input') as HTMLInputElement
 const emptyStarSVG = document.querySelectorAll(
   '.input-star'
 )[0] as HTMLImageElement
 const starSVG = document.querySelectorAll('.input-star')[1] as HTMLImageElement
+import { currentList as list } from '../Tabs/TabList.js'
 
 export default class Input {
   element: HTMLInputElement
@@ -20,6 +19,8 @@ export default class Input {
     starSVG.addEventListener('click', () => {
       this.unStar()
     })
+
+    this.setupListener()
   }
 
   get value() {
@@ -41,5 +42,16 @@ export default class Input {
     starSVG.style.display = 'none'
     emptyStarSVG.style.display = 'block'
     this.isStarred = false
+  }
+
+  setupListener() {
+    this.element.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return
+      e.preventDefault()
+
+      list.createItem(this.value, undefined, this.isStarred)
+
+      this.clear()
+    })
   }
 }

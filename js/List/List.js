@@ -1,7 +1,8 @@
 import PlaceholderItem from '../Items/PlaceholderItem.js';
 import Item from '../Items/Item.js';
-import { list } from '../app.js';
+import { currentList as list } from '../Tabs/TabList.js';
 const HTMLlist = document.getElementById('list');
+const clearButton = document.getElementById('clear-button');
 export default class List {
     itemsPerPage;
     placeholderItems;
@@ -17,6 +18,9 @@ export default class List {
         this.createBlankItems();
         if (load)
             this.loadData();
+        clearButton.addEventListener('click', this.remove);
+        this.updateStats();
+        this.update();
     }
     createItems(items) {
         items.forEach((item) => {
@@ -124,8 +128,6 @@ export default class List {
                 window.location.hash = rawData;
             }
             this.createItems(data);
-            console.log(`Loaded rawData:`, rawData ? rawData : `No localStorage data`);
-            console.log(`Loaded URLRawData:`, URLRawData ? URLRawData : `No URL data`);
             console.log(`Parsed ${URLRawData ? 'URL data' : 'localStorage data'} as`, data);
             return;
         }
@@ -156,5 +158,18 @@ export default class List {
         this.placeholderItems.forEach((placeholderItem) => {
             placeholderItem.remove();
         });
+    }
+    updateStats() {
+        const todoItems = document.getElementById('todo-items');
+        const completedItems = document.getElementById('completed-items');
+        const totalItems = document.getElementById('total-items');
+        todoItems.textContent = JSON.stringify(this.todoItems);
+        completedItems.textContent = JSON.stringify(this.completedItems);
+        totalItems.textContent = JSON.stringify(this.totalItems);
+        this.saveData();
+    }
+    update() {
+        this.updateStats();
+        setTimeout(() => this.update(), 200);
     }
 }

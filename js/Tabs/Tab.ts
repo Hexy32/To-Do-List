@@ -8,10 +8,10 @@ export default class Tab {
   #close!: HTMLImageElement
   #edit!: HTMLImageElement
   #input!: HTMLInputElement
-  savedList: string
-  constructor(name = 'Unnamed') {
+  savedList: List
+  constructor(name = 'Unnamed', list: List) {
     this.name = name
-    this.savedList = 'Placeholder'
+    this.savedList = list
 
     this.createTab(name)
   }
