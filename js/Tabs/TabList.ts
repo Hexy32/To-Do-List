@@ -4,7 +4,8 @@ import Tab from './Tab.js'
 const addTabButton = document.getElementById('add-tab') as HTMLLIElement
 const listElm = addTabButton.parentElement as HTMLUListElement
 
-export let currentList = new List()
+//Define and export the current working list
+export let currentList: List
 
 export default class TabList {
   tabs: Tab[] = []
@@ -18,14 +19,25 @@ export default class TabList {
   }
 
   createTab() {
-    this.tabs.forEach((tab) => {
-      tab.deselect()
-    })
+    this.clearSelectedTabs()
 
+    //Create tab object
     const tab = new Tab(undefined, currentList)
     addTabButton.insertAdjacentElement('beforebegin', tab.element)
 
+    if (currentList) {
+      currentList.saveData()
+      currentList.remove()
+    }
+    currentList = new List(false, tab.id)
+
     this.tabs.push(tab)
+  }
+
+  clearSelectedTabs() {
+    this.tabs.forEach((tab) => {
+      tab.deselect()
+    })
   }
 
   currentTab() {

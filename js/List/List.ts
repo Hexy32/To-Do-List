@@ -1,6 +1,5 @@
 import PlaceholderItem from '../Items/PlaceholderItem.js'
 import Item from '../Items/Item.js'
-import { currentList as list } from '../Tabs/TabList.js'
 
 const HTMLlist = document.getElementById('list')
 const clearButton = document.getElementById('clear-button') as HTMLSpanElement
@@ -9,11 +8,10 @@ export default class List {
   itemsPerPage: number
   placeholderItems: PlaceholderItem[]
   items: Item[]
+  tabId: string
 
-  constructor(load = true, itemsPerPage = 6) {
-    if (HTMLlist!.childElementCount >= 1) {
-      list.remove()
-    }
+  constructor(load = true, tabId: string, itemsPerPage = 6) {
+    this.tabId = tabId
 
     this.itemsPerPage = itemsPerPage
     document.documentElement.style.setProperty(
@@ -56,9 +54,7 @@ export default class List {
 
     this.appendItem(item)
 
-    this.setupDelete(item)
-
-    this.setupStar(item)
+    this.setupInput(item)
   }
 
   private appendItem(item: Item) {
@@ -93,13 +89,10 @@ export default class List {
     this.createBlankItem()
   }
 
-  setupDelete(item: Item) {
+  setupInput(item: Item) {
     item.delete.addEventListener('click', () => {
       this.deleteItem(item)
     })
-  }
-
-  setupStar(item: Item) {
     item.starEmpty.addEventListener('click', () => {
       this.starItem(item)
     })
@@ -142,15 +135,16 @@ export default class List {
 
   saveData() {
     const rawData = JSON.stringify(this.items)
-    localStorage.setItem('listData', rawData)
-    window.location.hash = encodeURI(rawData)
+    localStorage.setItem(this.tabId, rawData)
+    // window.location.hash = encodeURI(rawData)
   }
 
   loadData() {
     let data: Item[]
-    const rawData = localStorage.getItem('listData')
+    const rawData = localStorage.getItem(this.tabId)
     const listElem = document.getElementById('list') as HTMLUListElement
-    const URLRawData = decodeURI(window.location.hash)
+    let URLRawData = decodeURI(window.location.hash)
+    URLRawData = '#'
 
     if (URLRawData.slice(1)) {
       data = JSON.parse(URLRawData.slice(1))
@@ -179,6 +173,10 @@ export default class List {
       return
     }
     console.log('No data to load')
+  }
+
+  removeURLData() {
+    window.location.hash = ''
   }
 
   get totalItemsLength() {
@@ -210,6 +208,8 @@ export default class List {
     this.placeholderItems.forEach((placeholderItem) => {
       placeholderItem.remove()
     })
+
+    this.removeURLData()
   }
 
   updateStats() {

@@ -8,13 +8,7 @@ export default class Input {
     constructor() {
         this.element = input;
         this.isStarred = false;
-        emptyStarSVG.addEventListener('click', () => {
-            this.star();
-        });
-        starSVG.addEventListener('click', () => {
-            this.unStar();
-        });
-        this.setupListener();
+        this.setupListeners();
     }
     get value() {
         return this.element.value;
@@ -33,7 +27,13 @@ export default class Input {
         emptyStarSVG.style.display = 'block';
         this.isStarred = false;
     }
-    setupListener() {
+    setupListeners() {
+        emptyStarSVG.addEventListener('click', () => {
+            this.star();
+        });
+        starSVG.addEventListener('click', () => {
+            this.unStar();
+        });
         this.element.addEventListener('keydown', (e) => {
             if (e.key !== 'Enter')
                 return;

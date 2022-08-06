@@ -1,16 +1,14 @@
 import PlaceholderItem from '../Items/PlaceholderItem.js';
 import Item from '../Items/Item.js';
-import { currentList as list } from '../Tabs/TabList.js';
 const HTMLlist = document.getElementById('list');
 const clearButton = document.getElementById('clear-button');
 export default class List {
     itemsPerPage;
     placeholderItems;
     items;
-    constructor(load = true, itemsPerPage = 6) {
-        if (HTMLlist.childElementCount >= 1) {
-            list.remove();
-        }
+    tabId;
+    constructor(load = true, tabId, itemsPerPage = 6) {
+        this.tabId = tabId;
         this.itemsPerPage = itemsPerPage;
         document.documentElement.style.setProperty('--total-items', itemsPerPage.toString());
         this.placeholderItems = [];
@@ -102,14 +100,14 @@ export default class List {
     }
     saveData() {
         const rawData = JSON.stringify(this.items);
-        localStorage.setItem('listData', rawData);
-        window.location.hash = encodeURI(rawData);
+        localStorage.setItem(this.tabId, rawData);
     }
     loadData() {
         let data;
-        const rawData = localStorage.getItem('listData');
+        const rawData = localStorage.getItem(this.tabId);
         const listElem = document.getElementById('list');
-        const URLRawData = decodeURI(window.location.hash);
+        let URLRawData = decodeURI(window.location.hash);
+        URLRawData = '#';
         if (URLRawData.slice(1)) {
             data = JSON.parse(URLRawData.slice(1));
         }
@@ -132,6 +130,9 @@ export default class List {
             return;
         }
         console.log('No data to load');
+    }
+    removeURLData() {
+        window.location.hash = '';
     }
     get totalItemsLength() {
         return this.items.length + this.placeholderItems.length;
@@ -158,6 +159,7 @@ export default class List {
         this.placeholderItems.forEach((placeholderItem) => {
             placeholderItem.remove();
         });
+        this.removeURLData();
     }
     updateStats() {
         const todoItems = document.getElementById('todo-items');

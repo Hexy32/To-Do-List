@@ -46,6 +46,7 @@ export default class Item {
       '.deleteSVG'
     ) as HTMLImageElement
 
+    //Set id and content to the correct data
     this.element.querySelector('.content')!.textContent = this.content
     this.element.id = this.id
 
@@ -109,11 +110,7 @@ export default class Item {
   }
 
   remove() {
-    this.element.classList.add('fade-out')
     this.element.remove()
-
-    /*     this.element.addEventListener('animationend', () => {
-    }) */
   }
 
   setupInput() {

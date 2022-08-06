@@ -5,13 +5,15 @@ const tabTemplate = document.getElementById('tab') as HTMLTemplateElement
 export default class Tab {
   element!: HTMLLIElement
   name: string
+  id: string
   #close!: HTMLImageElement
   #edit!: HTMLImageElement
   #input!: HTMLInputElement
   savedList: List
-  constructor(name = 'Unnamed', list: List) {
+  constructor(name = 'Unnamed', list: List, id = `ID${Date.now()}`) {
     this.name = name
     this.savedList = list
+    this.id = id
 
     this.createTab(name)
   }
@@ -24,6 +26,7 @@ export default class Tab {
     this.#close = this.element.querySelector('#close') as HTMLImageElement
     this.#input = this.element.querySelector('#tab-input') as HTMLInputElement
 
+    //Makes tab animate and fill width of container
     this.element.classList.add('grow')
 
     this.select()

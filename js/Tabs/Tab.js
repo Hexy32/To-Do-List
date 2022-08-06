@@ -2,13 +2,15 @@ const tabTemplate = document.getElementById('tab');
 export default class Tab {
     element;
     name;
+    id;
     #close;
     #edit;
     #input;
     savedList;
-    constructor(name = 'Unnamed', list) {
+    constructor(name = 'Unnamed', list, id = `ID${Date.now()}`) {
         this.name = name;
         this.savedList = list;
+        this.id = id;
         this.createTab(name);
     }
     createTab(name) {
