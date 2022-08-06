@@ -3,22 +3,24 @@ export default class Tab {
     element;
     name;
     id;
+    selected;
     #close;
     #edit;
     #input;
     savedList;
     constructor(name = 'Unnamed', list, id = `ID${Date.now()}`) {
-        this.name = name;
-        this.savedList = list;
-        this.id = id;
-        this.createTab(name);
+        this.selected = true;
+        this.createTab(name, list, id);
     }
-    createTab(name) {
+    createTab(name, list, id) {
         const tabTemplateClone = tabTemplate.cloneNode(true);
         this.element = tabTemplateClone.content.firstElementChild;
         this.#edit = this.element.querySelector('#edit');
         this.#close = this.element.querySelector('#close');
         this.#input = this.element.querySelector('#tab-input');
+        this.element.id = id;
+        this.id = id;
+        this.savedList = list;
         this.element.classList.add('grow');
         this.select();
         this.#input.value = name;
@@ -39,9 +41,11 @@ export default class Tab {
     }
     select() {
         this.element.classList.add('selected');
+        this.selected = true;
     }
     deselect() {
         this.element.classList.remove('selected');
+        this.selected = false;
     }
     remove() {
         this.element.remove();

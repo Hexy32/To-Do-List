@@ -6,19 +6,13 @@ export default class List {
     itemsPerPage;
     placeholderItems;
     items;
-    tabId;
-    constructor(load = true, tabId, itemsPerPage = 6) {
-        this.tabId = tabId;
+    constructor(load = true, itemsPerPage = 6) {
         this.itemsPerPage = itemsPerPage;
         document.documentElement.style.setProperty('--total-items', itemsPerPage.toString());
         this.placeholderItems = [];
         this.items = [];
         this.createBlankItems();
-        if (load)
-            this.loadData();
         clearButton.addEventListener('click', this.remove);
-        this.updateStats();
-        this.update();
     }
     createItems(items) {
         items.forEach((item) => {
@@ -33,8 +27,7 @@ export default class List {
         this.removeBlankItem();
         const item = new Item(content, id, isStarred, isDone);
         this.appendItem(item);
-        this.setupDelete(item);
-        this.setupStar(item);
+        this.setupInput(item);
     }
     appendItem(item) {
         if (this.items.length == 0 || item.isStarred) {
@@ -60,12 +53,10 @@ export default class List {
         this.items.splice(index, 1);
         this.createBlankItem();
     }
-    setupDelete(item) {
+    setupInput(item) {
         item.delete.addEventListener('click', () => {
             this.deleteItem(item);
         });
-    }
-    setupStar(item) {
         item.starEmpty.addEventListener('click', () => {
             this.starItem(item);
         });
@@ -98,38 +89,18 @@ export default class List {
         HTMLlist.append(placeholderItem.element);
         this.placeholderItems.push(placeholderItem);
     }
-    saveData() {
-        const rawData = JSON.stringify(this.items);
-        localStorage.setItem(this.tabId, rawData);
-    }
-    loadData() {
-        let data;
-        const rawData = localStorage.getItem(this.tabId);
+    loadData(data, urlLoad = false) {
         const listElem = document.getElementById('list');
-        let URLRawData = decodeURI(window.location.hash);
-        URLRawData = '#';
-        if (URLRawData.slice(1)) {
+        if (urlLoad) {
+            let URLRawData = decodeURI(window.location.hash);
+            URLRawData = '#';
             data = JSON.parse(URLRawData.slice(1));
         }
-        else if (rawData) {
-            data = JSON.parse(rawData);
-        }
-        else {
-            console.log('No data to load');
-            return;
-        }
-        if (data.length != 0) {
-            data.forEach((item) => {
-                item.element = listElem.querySelector(`#${item.id}`);
-            });
-            if (rawData) {
-                window.location.hash = rawData;
-            }
-            this.createItems(data);
-            console.log(`Parsed ${URLRawData ? 'URL data' : 'localStorage data'} as`, data);
-            return;
-        }
-        console.log('No data to load');
+        data.forEach((item) => {
+            item.element = listElem.querySelector(`#${item.id}`);
+        });
+        this.createItems(data);
+        console.log(`Parsed 'localStorage data' as`, data);
     }
     removeURLData() {
         window.location.hash = '';
@@ -160,18 +131,5 @@ export default class List {
             placeholderItem.remove();
         });
         this.removeURLData();
-    }
-    updateStats() {
-        const todoItems = document.getElementById('todo-items');
-        const completedItems = document.getElementById('completed-items');
-        const totalItems = document.getElementById('total-items');
-        todoItems.textContent = JSON.stringify(this.todoItems);
-        completedItems.textContent = JSON.stringify(this.completedItems);
-        totalItems.textContent = JSON.stringify(this.totalItems);
-        this.saveData();
-    }
-    update() {
-        this.updateStats();
-        setTimeout(() => this.update(), 200);
     }
 }

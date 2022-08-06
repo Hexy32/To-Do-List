@@ -8,11 +8,8 @@ export default class List {
   itemsPerPage: number
   placeholderItems: PlaceholderItem[]
   items: Item[]
-  tabId: string
 
-  constructor(load = true, tabId: string, itemsPerPage = 6) {
-    this.tabId = tabId
-
+  constructor(load = true, itemsPerPage = 6) {
     this.itemsPerPage = itemsPerPage
     document.documentElement.style.setProperty(
       '--total-items',
@@ -24,11 +21,7 @@ export default class List {
 
     this.createBlankItems()
 
-    if (load) this.loadData()
-
     clearButton.addEventListener('click', this.remove)
-    this.updateStats()
-    this.update()
   }
 
   createItems(items: Item[]) {
@@ -133,46 +126,21 @@ export default class List {
     this.placeholderItems.push(placeholderItem)
   }
 
-  saveData() {
-    const rawData = JSON.stringify(this.items)
-    localStorage.setItem(this.tabId, rawData)
-    // window.location.hash = encodeURI(rawData)
-  }
-
-  loadData() {
-    let data: Item[]
-    const rawData = localStorage.getItem(this.tabId)
+  loadData(data: Item[], urlLoad = false) {
     const listElem = document.getElementById('list') as HTMLUListElement
-    let URLRawData = decodeURI(window.location.hash)
-    URLRawData = '#'
 
-    if (URLRawData.slice(1)) {
+    if (urlLoad) {
+      let URLRawData = decodeURI(window.location.hash)
+      URLRawData = '#'
       data = JSON.parse(URLRawData.slice(1))
-    } else if (rawData) {
-      data = JSON.parse(rawData)
-    } else {
-      console.log('No data to load')
-      return
     }
 
-    if (data.length != 0) {
-      data.forEach((item) => {
-        item.element = listElem.querySelector(`#${item.id}`) as HTMLLIElement
-      })
+    data.forEach((item) => {
+      item.element = listElem.querySelector(`#${item.id}`) as HTMLLIElement
+    })
+    this.createItems(data)
 
-      if (rawData) {
-        window.location.hash = rawData
-      }
-
-      this.createItems(data)
-
-      console.log(
-        `Parsed ${URLRawData ? 'URL data' : 'localStorage data'} as`,
-        data
-      )
-      return
-    }
-    console.log('No data to load')
+    console.log(`Parsed 'localStorage data' as`, data)
   }
 
   removeURLData() {
@@ -210,23 +178,5 @@ export default class List {
     })
 
     this.removeURLData()
-  }
-
-  updateStats() {
-    const todoItems = document.getElementById('todo-items') as HTMLSpanElement
-    const completedItems = document.getElementById(
-      'completed-items'
-    ) as HTMLSpanElement
-    const totalItems = document.getElementById('total-items') as HTMLSpanElement
-
-    todoItems.textContent = JSON.stringify(this.todoItems)
-    completedItems.textContent = JSON.stringify(this.completedItems)
-    totalItems.textContent = JSON.stringify(this.totalItems)
-    this.saveData()
-  }
-
-  update() {
-    this.updateStats()
-    setTimeout(() => this.update(), 200)
   }
 }

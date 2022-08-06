@@ -3,4 +3,4 @@ import TabList from './Tabs/TabList.js'
 
 //Initialize objects
 new Input()
-console.log(new TabList())
+const tabList = new TabList()
