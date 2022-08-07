@@ -134,6 +134,7 @@ export default class List {
         this.placeholderItems.forEach((placeholderItem) => {
             placeholderItem.remove();
         });
+        this.placeholderItems = [];
         this.removeURLData();
     }
 }

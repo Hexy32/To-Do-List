@@ -182,6 +182,8 @@ export default class List {
       placeholderItem.remove()
     })
 
+    this.placeholderItems = []
+
     this.removeURLData()
   }
 }
