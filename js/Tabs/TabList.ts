@@ -9,8 +9,9 @@ export let currentList: List
 
 export default class TabList {
   tabs: Tab[] = []
+  #MAX_TABS: number
 
-  constructor() {
+  constructor(MAX_TABS = 10) {
     addTabButton.parentElement?.addEventListener('click', (e) => {
       if (e.target instanceof Element && e.target.tagName === 'LI') {
         if (e.target.classList.value === 'add-tab grow') {
@@ -20,6 +21,8 @@ export default class TabList {
         }
       }
     })
+
+    this.#MAX_TABS = MAX_TABS
 
     this.clearButton()
     this.loadData()
@@ -69,6 +72,7 @@ export default class TabList {
   }
 
   createTab(name?: string, savedList?: List, id?: string) {
+    if (this.tabs.length >= this.#MAX_TABS) return
     this.clearSelectedTabs()
 
     //Create new list, clear old list

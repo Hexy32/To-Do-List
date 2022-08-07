@@ -5,7 +5,8 @@ const clearButton = document.getElementById('clear-button');
 export let currentList;
 export default class TabList {
     tabs = [];
-    constructor() {
+    #MAX_TABS;
+    constructor(MAX_TABS = 10) {
         addTabButton.parentElement?.addEventListener('click', (e) => {
             if (e.target instanceof Element && e.target.tagName === 'LI') {
                 if (e.target.classList.value === 'add-tab grow') {
@@ -16,6 +17,7 @@ export default class TabList {
                 }
             }
         });
+        this.#MAX_TABS = MAX_TABS;
         this.clearButton();
         this.loadData();
         this.update();
@@ -57,6 +59,8 @@ export default class TabList {
         }
     }
     createTab(name, savedList, id) {
+        if (this.tabs.length >= this.#MAX_TABS)
+            return;
         this.clearSelectedTabs();
         if (currentList)
             currentList.remove();
