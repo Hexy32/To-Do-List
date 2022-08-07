@@ -1,7 +1,6 @@
 import PlaceholderItem from '../Items/PlaceholderItem.js';
 import Item from '../Items/Item.js';
 const HTMLlist = document.getElementById('list');
-const clearButton = document.getElementById('clear-button');
 export default class List {
     itemsPerPage;
     placeholderItems;
@@ -12,7 +11,12 @@ export default class List {
         this.placeholderItems = [];
         this.items = [];
         this.createBlankItems();
-        clearButton.addEventListener('click', this.remove);
+    }
+    updateHTML() {
+        const loadedItems = this.items;
+        this.items = [];
+        this.createItems(loadedItems);
+        this.createBlankItems();
     }
     createItems(items) {
         items.forEach((item) => {

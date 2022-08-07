@@ -1,3 +1,4 @@
+import { tabList } from '../app.js';
 const tabTemplate = document.getElementById('tab');
 export default class Tab {
     element;
@@ -21,6 +22,7 @@ export default class Tab {
         this.element.id = id;
         this.id = id;
         this.savedList = list;
+        this.name = name;
         this.element.classList.add('grow');
         this.select();
         this.#input.value = name;
@@ -34,6 +36,7 @@ export default class Tab {
             this.remove();
         });
         this.#input.addEventListener('keydown', (e) => {
+            this.name = this.#input.value;
             if (e.key == 'Enter') {
                 this.#input.blur();
             }
@@ -48,6 +51,6 @@ export default class Tab {
         this.selected = false;
     }
     remove() {
-        this.element.remove();
+        tabList.removeTab(this.id);
     }
 }

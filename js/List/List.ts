@@ -2,7 +2,6 @@ import PlaceholderItem from '../Items/PlaceholderItem.js'
 import Item from '../Items/Item.js'
 
 const HTMLlist = document.getElementById('list')
-const clearButton = document.getElementById('clear-button') as HTMLSpanElement
 
 export default class List {
   itemsPerPage: number
@@ -20,8 +19,13 @@ export default class List {
     this.items = []
 
     this.createBlankItems()
+  }
+  updateHTML() {
+    const loadedItems = this.items
+    this.items = []
 
-    clearButton.addEventListener('click', this.remove)
+    this.createItems(loadedItems)
+    this.createBlankItems()
   }
 
   createItems(items: Item[]) {
@@ -173,6 +177,7 @@ export default class List {
     this.items.forEach((item) => {
       item.remove()
     })
+
     this.placeholderItems.forEach((placeholderItem) => {
       placeholderItem.remove()
     })

@@ -1,3 +1,4 @@
+import { tabList } from '../app.js'
 import List from '../List/List'
 
 const tabTemplate = document.getElementById('tab') as HTMLTemplateElement
@@ -28,6 +29,7 @@ export default class Tab {
     this.element.id = id
     this.id = id
     this.savedList = list
+    this.name = name
 
     //Makes tab animate and fill width of container
     this.element.classList.add('grow')
@@ -45,6 +47,7 @@ export default class Tab {
       this.remove()
     })
     this.#input.addEventListener('keydown', (e) => {
+      this.name = this.#input.value
       if (e.key == 'Enter') {
         this.#input.blur()
       }
@@ -62,6 +65,6 @@ export default class Tab {
   }
 
   remove() {
-    this.element.remove()
+    tabList.removeTab(this.id)
   }
 }
