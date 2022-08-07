@@ -71,15 +71,13 @@ export default class Tab {
     tabList.removeTab(this.id)
   }
 
-  updateName() {
-    tabTitle.addEventListener('keyup', (e) => {
+  updateName(updateTab = false) {
+    if (updateTab) {
       this.name = tabTitle.value
-      this.#input.value = tabTitle.value
-      if (e.key == 'Enter') {
-        tabTitle.blur()
-      }
-    })
-
-    tabTitle.value = this.name
+      this.#input.value = this.name
+    } else {
+      this.name = this.#input.value
+      tabTitle.value = this.name
+    }
   }
 }

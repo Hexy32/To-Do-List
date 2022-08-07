@@ -2,6 +2,8 @@ import List from '../List/List.js';
 import Tab from './Tab.js';
 const addTabButton = document.getElementById('add-tab');
 const clearButton = document.getElementById('clear-button');
+const tabTitle = document.querySelector('header')
+    ?.children[0];
 export let currentList;
 export default class TabList {
     tabs = [];
@@ -10,7 +12,7 @@ export default class TabList {
         addTabButton.parentElement?.addEventListener('click', (e) => {
             if (e.target instanceof Element && e.target.tagName === 'LI') {
                 if (e.target.classList.value === 'add-tab grow') {
-                    this.createTab().updateName();
+                    this.createTab();
                 }
                 else {
                     this.selectTab(e.target.id);
@@ -19,6 +21,7 @@ export default class TabList {
         });
         this.#MAX_TABS = MAX_TABS;
         this.clearButton();
+        this.tabTitle();
         this.loadData();
         this.update();
     }
@@ -72,7 +75,7 @@ export default class TabList {
         const tab = new Tab(name, savedList, id);
         addTabButton.insertAdjacentElement('beforebegin', tab.element);
         this.tabs.push(tab);
-        return tab;
+        tab.updateName();
     }
     clearSelectedTabs() {
         this.tabs.forEach((tab) => {
@@ -94,8 +97,10 @@ export default class TabList {
     }
     loadData() {
         const rawData = localStorage.getItem('TabList');
-        if (!rawData)
+        if (!rawData) {
+            this.createTab();
             return;
+        }
         const data = JSON.parse(rawData);
         let selectTabId;
         data.forEach((tab) => {
@@ -130,6 +135,14 @@ export default class TabList {
             currentList.remove();
             currentList = new List(false);
             this.currentTab().savedList = currentList;
+        });
+    }
+    tabTitle() {
+        tabTitle.addEventListener('keyup', (e) => {
+            this.currentTab().updateName(true);
+            if (e.key == 'Enter') {
+                tabTitle.blur();
+            }
         });
     }
 }
