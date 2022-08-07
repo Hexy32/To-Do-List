@@ -15,7 +15,7 @@ export default class TabList {
     addTabButton.parentElement?.addEventListener('click', (e) => {
       if (e.target instanceof Element && e.target.tagName === 'LI') {
         if (e.target.classList.value === 'add-tab grow') {
-          this.createTab()
+          this.createTab()!.updateName()
         } else {
           this.selectTab(e.target.id)
         }
@@ -88,6 +88,8 @@ export default class TabList {
     const tab = new Tab(name, savedList, id)
     addTabButton.insertAdjacentElement('beforebegin', tab.element)
     this.tabs.push(tab)
+
+    return tab
   }
 
   clearSelectedTabs() {
