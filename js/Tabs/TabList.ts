@@ -36,6 +36,8 @@ export default class TabList {
       if (tab.id === tabId) {
         tab.select()
 
+        tab.updateName()
+
         if (currentList) currentList.remove()
         currentList = tab.savedList
         currentList.updateHTML()

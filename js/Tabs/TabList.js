@@ -27,6 +27,7 @@ export default class TabList {
         this.tabs.forEach((tab) => {
             if (tab.id === tabId) {
                 tab.select();
+                tab.updateName();
                 if (currentList)
                     currentList.remove();
                 currentList = tab.savedList;
