@@ -33,12 +33,12 @@ export default class TabList {
   }
 
   selectTab(tabId: string) {
-    this.deselectTabs()
-
+    if (this.currentTab().id === tabId) return
     this.tabs.forEach((tab) => {
       if (tab.id === tabId) {
-        tab.select()
+        this.deselectTabs()
 
+        tab.select()
         tab.updateName()
 
         if (currentList) currentList.remove()
@@ -60,18 +60,19 @@ export default class TabList {
 
     for (let i = 0; i < this.tabs.length; i++) {
       const tab = this.tabs[i]
-      if (tab.id === tabId) {
-        this.tabs[i].element.remove()
-        this.tabs.splice(i, 1)
 
-        if (!tab.selected) return
-
+      if (tab.selected) {
         function getIndex() {
-          if (i === 0) return 0
+          if (i === 0) return i + 1
           return i - 1
         }
 
         this.selectTab(this.tabs[getIndex()].id)
+      }
+
+      if (tab.id === tabId) {
+        this.tabs[i].element.remove()
+        this.tabs.splice(i, 1)
       }
     }
   }
@@ -83,7 +84,7 @@ export default class TabList {
     //Create new list, clear old list
     if (currentList) currentList.remove()
     if (!savedList) {
-      currentList = new List(false)
+      currentList = new List()
       savedList = currentList
     }
 
@@ -169,7 +170,7 @@ export default class TabList {
   clearButton() {
     clearButton.addEventListener('click', () => {
       currentList.remove()
-      currentList = new List(false)
+      currentList = new List()
       this.currentTab().savedList = currentList
     })
   }

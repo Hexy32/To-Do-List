@@ -26,9 +26,11 @@ export default class TabList {
         this.update();
     }
     selectTab(tabId) {
-        this.deselectTabs();
+        if (this.currentTab().id === tabId)
+            return;
         this.tabs.forEach((tab) => {
             if (tab.id === tabId) {
+                this.deselectTabs();
                 tab.select();
                 tab.updateName();
                 if (currentList)
@@ -48,17 +50,17 @@ export default class TabList {
             return;
         for (let i = 0; i < this.tabs.length; i++) {
             const tab = this.tabs[i];
-            if (tab.id === tabId) {
-                this.tabs[i].element.remove();
-                this.tabs.splice(i, 1);
-                if (!tab.selected)
-                    return;
+            if (tab.selected) {
                 function getIndex() {
                     if (i === 0)
-                        return 0;
+                        return i + 1;
                     return i - 1;
                 }
                 this.selectTab(this.tabs[getIndex()].id);
+            }
+            if (tab.id === tabId) {
+                this.tabs[i].element.remove();
+                this.tabs.splice(i, 1);
             }
         }
     }
@@ -69,7 +71,7 @@ export default class TabList {
         if (currentList)
             currentList.remove();
         if (!savedList) {
-            currentList = new List(false);
+            currentList = new List();
             savedList = currentList;
         }
         const tab = new Tab(name, savedList, id);
@@ -133,7 +135,7 @@ export default class TabList {
     clearButton() {
         clearButton.addEventListener('click', () => {
             currentList.remove();
-            currentList = new List(false);
+            currentList = new List();
             this.currentTab().savedList = currentList;
         });
     }

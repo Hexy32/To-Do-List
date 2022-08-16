@@ -5,7 +5,7 @@ export default class List {
     itemsPerPage;
     placeholderItems;
     items;
-    constructor(load = true, itemsPerPage = 6) {
+    constructor(itemsPerPage = 6) {
         this.itemsPerPage = itemsPerPage;
         document.documentElement.style.setProperty('--total-items', itemsPerPage.toString());
         this.placeholderItems = [];
@@ -32,6 +32,7 @@ export default class List {
         const item = new Item(content, id, isStarred, isDone);
         this.appendItem(item);
         this.setupInput(item);
+        HTMLlist.scrollTop = HTMLlist.scrollHeight;
     }
     appendItem(item) {
         if (this.items.length == 0 || item.isStarred) {

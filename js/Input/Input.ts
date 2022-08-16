@@ -5,7 +5,6 @@ const emptyStarSVG = document.querySelectorAll(
 )[0] as HTMLImageElement
 const starSVG = document.querySelectorAll('.input-star')[1] as HTMLImageElement
 
-import List from '../List/List.js'
 //Get the current list
 import { currentList, currentList as list } from '../Tabs/TabList.js'
 

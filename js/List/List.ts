@@ -8,7 +8,7 @@ export default class List {
   placeholderItems: PlaceholderItem[]
   items: Item[]
 
-  constructor(load = true, itemsPerPage = 6) {
+  constructor(itemsPerPage = 6) {
     this.itemsPerPage = itemsPerPage
     document.documentElement.style.setProperty(
       '--total-items',
@@ -52,6 +52,8 @@ export default class List {
     this.appendItem(item)
 
     this.setupInput(item)
+
+    HTMLlist!.scrollTop = HTMLlist!.scrollHeight
   }
 
   private appendItem(item: Item) {
