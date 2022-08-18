@@ -1,14 +1,11 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "strict": true,
-    "watch": true,
-    "lib": ["DOM", "es2021", "es2021.intl"],
-    "removeComments": true,
-    "outDir": "build/",
-    "moduleResolution": "NodeNext"
-  },
-  "watchOptions": {
-    "excludeDirectories": ["node_modules", "build"]
-  }
+  "references": [
+    {
+      "path": "./src/app/tsconfig.json"
+    },
+    {
+      "path": "./src/server/tsconfig.json"
+    }
+  ],
+  "files": []
 }

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "strict": true,
+    "lib": ["DOM", "es2021"],
+    "removeComments": true,
+    "esModuleInterop": false,
+    "moduleResolution": "node"
+  },
+  "watchOptions": {
+    "excludeDirectories": ["node_modules", "build", "bundle"]
+  }
+}

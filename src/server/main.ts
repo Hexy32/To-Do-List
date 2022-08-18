@@ -1,7 +1,10 @@
 // Modules to control application life and create native browser window
-import { app, BrowserWindow, ipcMain } from 'electron'
+
+import './test'
+
 import * as path from 'path'
-import * as fs from 'fs'
+
+import { BrowserWindow, app, ipcMain } from 'electron'
 
 function createWindow() {
   // Create the browser window.
@@ -17,29 +20,13 @@ function createWindow() {
   })
 
   mainWindow.maximize()
-
-  // and load the index.html of the app.
-  mainWindow.loadFile('build/html/index.html')
-
-  // Open the DevTools.
+  mainWindow.loadFile('index.html')
   mainWindow.webContents.openDevTools()
 }
 
-/* ipcMain.on('testData', (e, arg) => {
-  fs.writeFile(
-    path.join(__dirname, 'testData.list'),
-    JSON.stringify(arg),
-    (err) => {
-      if (err) throw err
-      console.log('The file has been saved!')
-    }
-  )
-
-  fs.unlink(path.join(__dirname, 'testData.list'), (err) => {
-    if (err) throw err
-    console.log('The file has been deleted!')
-  })
-}) */
+ipcMain.on('get-tab-list', (event, arg) => {
+  console.log(arg)
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

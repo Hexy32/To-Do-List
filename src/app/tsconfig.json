@@ -1,0 +1,10 @@
+{
+  "extends": "../../base-tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "outDir": "../../build/app/",
+    "rootDir": ".",
+    "target": "ESNext"
+  }
+}
