@@ -6,7 +6,7 @@
     "lib": ["DOM", "es2021", "es2021.intl"],
     "removeComments": true,
     "outDir": "build/",
-    "moduleResolution": "nodeNext"
+    "moduleResolution": "NodeNext"
   },
   "watchOptions": {
     "excludeDirectories": ["node_modules", "build"]
