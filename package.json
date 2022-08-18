@@ -4,8 +4,7 @@
   "description": "A simple to-do list with tabs",
   "main": "./build/core/main.js",
   "scripts": {
-    "start": "electron .",
-    "build": "tsc"
+    "start": "electron ."
   },
   "repository": "https://hexy32.github.io/todo-list-version2/",
   "keywords": [
@@ -16,6 +15,7 @@
   ],
   "author": "Hexy32",
   "devDependencies": {
+    "@types/electron": "^1.6.10",
     "electron": "^20.0.1"
   }
 }
