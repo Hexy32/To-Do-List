@@ -1,21 +1,20 @@
 {
-  "name": "electron-quick-start",
+  "name": "to-do-list",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
-  "main": "main.js",
+  "description": "A simple to-do list with tabs",
+  "main": "./build/core/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "tsc"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://hexy32.github.io/todo-list-version2/",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "electron",
+    "todo",
+    "list",
+    "tabs"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "Hexy32",
   "devDependencies": {
     "electron": "^20.0.1"
   }

@@ -1,3 +1,3 @@
-This is my second try making a full app with TypeScript, this time untilizing classes!
+This is my second try making a full app with TypeScript, this time utilizing classes!
 
-Check the Envirments to see the webiste.
+Check the environments to see the website.
