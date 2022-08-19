@@ -6,9 +6,9 @@
   "scripts": {
     "build": "npm run compile && npm run bundle && npm run start",
     "compile": "npx -p typescript tsc -b",
-    "bundle": "npx webpack",
+    "bundle": "npx webpack --config webpack.config.js",
     "start": "electron .",
-    "package": "npm run build && node package.js"
+    "package": "npm run compile && npm run bundle && node package.js"
   },
   "repository": "https://hexy32.github.io/todo-list-version2/",
   "keywords": [
@@ -20,10 +20,12 @@
   "author": "Hexy32",
   "devDependencies": {
     "@types/electron": "^1.6.10",
-    "electron": "^20.0.1",
     "electron-packager": "^15.5.1",
     "typescript": "^4.7.4",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "electron": "^20.0.1"
   }
 }

@@ -509,6 +509,8 @@ input:focus {
   top: 0;
   left: 0;
   display: flex;
+  user-select: none;
+  -webkit-app-region: drag;
 
   font-size: large;
   justify-content: space-between;
@@ -532,10 +534,21 @@ input:focus {
   text-align: center;
   cursor: pointer;
   border-radius: 5px;
+  -webkit-app-region: no-drag;
 
   transition: 300ms ease-in-out;
 }
 
 .top-bar-list > *:hover {
   background-color: var(--box-color-completed);
+}
+
+.top-bar-list > li > img {
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.windows-buttons > li {
+  width: 30px;
 }

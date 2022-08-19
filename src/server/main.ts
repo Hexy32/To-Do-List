@@ -1,5 +1,4 @@
 // Modules to control application life and create native browser window
-
 import './test'
 
 import * as path from 'path'
@@ -13,6 +12,7 @@ function createWindow() {
     minHeight: 700,
     icon: 'assets/logos/64x64.png',
     darkTheme: true,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js'),
@@ -22,11 +22,15 @@ function createWindow() {
   mainWindow.maximize()
   mainWindow.loadFile('index.html')
   mainWindow.webContents.openDevTools()
-}
 
-ipcMain.on('get-tab-list', (event, arg) => {
-  console.log(arg)
-})
+  ipcMain.on('maximize', () => {
+    mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()
+  })
+
+  ipcMain.on('minimize', () => {
+    mainWindow.minimize()
+  })
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
