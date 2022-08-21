@@ -34,31 +34,10 @@
   animation: item-fade-out 600ms forwards;
 }
 
-.checkbox,
-.checkbox-empty {
-  height: 27px;
-  width: 27px;
-  position: absolute;
-  cursor: pointer;
-}
-
 button {
   border: none;
   background: none;
   cursor: pointer;
-}
-
-.deleteSVG {
-  width: 35px;
-  cursor: pointer;
-}
-
-.content {
-  margin-left: 30px;
-  width: max-content;
-  overflow: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
 }
 
 .completed {
@@ -67,21 +46,20 @@ button {
   animation: completed 500ms forwards;
 }
 
-.completed > .content {
-  position: relative;
-  text-decoration: line-through;
+.starred {
+  background-color: var(--box-color-starred) !important;
+}
+
+.starred.completed {
+  background-color: var(--box-color-completed-starred) !important;
 }
 
 .star,
 .star-empty {
   height: 35px;
-  width: 35px;
+  min-width: 35px;
   cursor: pointer;
   margin-left: auto;
-}
-
-.starred {
-  background-color: var(--box-color-starred);
 }
 
 .input-star {
@@ -94,10 +72,6 @@ button {
 
 .input-star:hover {
   opacity: 1;
-}
-
-.starred.completed {
-  background-color: var(--box-color-completed-starred);
 }
 
 @keyframes completed {

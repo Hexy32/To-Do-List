@@ -41,6 +41,8 @@ export default class List {
     isStarred: boolean = false,
     isDone: boolean = false
   ) {
+    if (content.trim() == '') return
+
     if (id == null) {
       id = `ID${Date.now()}`
     }

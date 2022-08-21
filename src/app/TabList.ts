@@ -30,6 +30,13 @@ export default class TabList {
     this.tabTitle()
     this.loadData()
     this.update()
+
+    window.addEventListener('click', () => {
+      this.update()
+    })
+    window.addEventListener('keydown', () => {
+      this.update()
+    })
   }
 
   selectTab(tabId: string) {
@@ -52,6 +59,14 @@ export default class TabList {
     this.tabs.forEach((tab) => {
       tab.deselect()
     })
+  }
+
+  completeTab() {
+    this.currentTab().complete()
+  }
+
+  unCompleteTab() {
+    this.currentTab().unComplete()
   }
 
   removeTab(tabId: string) {
@@ -85,7 +100,7 @@ export default class TabList {
     }
   }
 
-  createTab(name?: string, savedList?: List, id?: string) {
+  createTab(name?: string, savedList?: List, id?: string, completed?: boolean) {
     if (this.tabs.length >= this.#MAX_TABS) return
     this.clearSelectedTabs()
 
@@ -97,7 +112,7 @@ export default class TabList {
     }
 
     //Create tab object
-    const tab = new Tab(name, savedList, id)
+    const tab = new Tab(name, savedList, id, completed)
     addTabButton.insertAdjacentElement('beforebegin', tab.element)
     this.tabs.push(tab)
 
@@ -136,7 +151,7 @@ export default class TabList {
     let selectTabId
     data.forEach((tab: Tab) => {
       //Load tabs
-      this.createTab(tab.name, undefined, tab.id)
+      this.createTab(tab.name, undefined, tab.id, tab.completed)
 
       //Send load request to list
       const listData = tab.savedList.items
@@ -150,9 +165,28 @@ export default class TabList {
 
     if (selectTabId) this.selectTab(selectTabId)
   }
-
+  /*
   // Update stats
   updateStats() {
+
+    }
+  }
+
+  update() {
+    this.updateStats()
+    setTimeout(() => this.update(), 500)
+  } */
+
+  update() {
+    if (
+      currentList.items.every((item) => item.isDone === true) &&
+      currentList.items.length >= 1
+    ) {
+      this.completeTab()
+    } else {
+      this.unCompleteTab()
+    }
+
     if (currentList) {
       const todoItems = document.getElementById('todo-items') as HTMLSpanElement
       const completedItems = document.getElementById(
@@ -168,11 +202,6 @@ export default class TabList {
 
       this.saveData()
     }
-  }
-
-  update() {
-    this.updateStats()
-    setTimeout(() => this.update(), 200)
   }
 
   clearButton() {

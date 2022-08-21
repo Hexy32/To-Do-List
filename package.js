@@ -9,7 +9,7 @@ bundleElectronApp({
   dir: __dirname,
   appBundleId: '',
   appCopyright: 'MIT',
-  appVersion: '0.5.1',
+  appVersion: '0.5.2',
   arch: 'x64',
   executableName: 'todo',
   icon: 'assets/logos/128x128.ico',

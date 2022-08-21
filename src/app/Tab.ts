@@ -14,13 +14,20 @@ export default class Tab {
   #edit!: HTMLImageElement
   #input!: HTMLInputElement
   savedList!: List
-  constructor(name = 'Unnamed', list: List, id = `ID${Date.now()}`) {
+  completed!: boolean
+
+  constructor(
+    name = 'Unnamed',
+    list: List,
+    id = `ID${Date.now()}`,
+    completed = false
+  ) {
     this.selected = true
 
-    this.createTab(name, list, id)
+    this.createTab(name, list, id, completed)
   }
 
-  createTab(name: string, list: List, id: string) {
+  createTab(name: string, list: List, id: string, completed: boolean) {
     const tabTemplateClone = tabTemplate.cloneNode(true) as HTMLTemplateElement
     this.element = tabTemplateClone.content.firstElementChild as HTMLLIElement
 
@@ -32,6 +39,11 @@ export default class Tab {
     this.id = id
     this.savedList = list
     this.name = name
+    this.completed = completed
+
+    if (completed) {
+      this.complete()
+    }
 
     //Makes tab animate and fill width of container
     this.element.classList.add('grow')
@@ -65,6 +77,16 @@ export default class Tab {
   deselect() {
     this.element.classList.remove('selected')
     this.selected = false
+  }
+
+  complete() {
+    this.element.classList.add('tab-completed')
+    this.completed = true
+  }
+
+  unComplete() {
+    this.element.classList.remove('tab-completed')
+    this.completed = false
   }
 
   remove() {
