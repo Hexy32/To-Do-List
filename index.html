@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./build/css/style.css" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +11,7 @@
 
   <body>
     <!-- Top bar -->
-    <div class="top-bar box">
+    <div class="top-bar">
       <ul class="top-bar-list function-list">
         <li><img src="./assets/logos/64x64.png" alt=""></li>
         <li>File</li>
@@ -35,31 +35,31 @@
     <main class="main-wrapper">
            <!-- Main page -->
       <ul class="tabs" id="tabs">
-        <li class="add-tab grow box" id="add-tab">
+        <li class="add-tab grow tab" id="add-tab">
         +
         </li>
       </ul>
-        <div class="content-wrapper box">
+        <div class="content-wrapper">
           <header class="box">
             <input type="text" class="tab-title">
           </header>
           <div class="settings-input-wrapper" id="settingsWrapper">
             <img class="star-empty input-star" src="./assets/svgs/star_hallow.svg" alt="Star Item">
             <img style="display:none;" class="star input-star" src="./assets/svgs/star.svg" alt="Unstar Item">
-            <textarea id="input" type="text" class="todo-input box" placeholder="Input text to begin..." /></textarea>
-            <p class="info box">
+            <textarea id="input" type="text" class="todo-input" placeholder="Input text to begin..." /></textarea>
+            <p class="info">
               <span>To-Do Items: </span>
               <span id="todo-items">0</span>
             </p>
-            <p class="info box">
+            <p class="info">
               <span >Completed Items: </span>
               <span id="completed-items">0</span>
             </p>
-            <p class="info box">
+            <p class="info">
               <span>Total Items: </span>
               <span id="total-items">0</span>
             </p>
-            <p class="info clear-button box" id="clear-button">
+            <p class="info clear-button" id="clear-button">
               <span>Clear List</span>
             </p>
           </div>
@@ -67,14 +67,14 @@
           </ul>
         </div>
         <template id="tab">
-          <li class="box">
+          <li class="tab">
             <img src="./assets/svgs/edit_tab.svg" alt="edit" id="edit">
             <input type="text" id="tab-input">
             <img src="./assets/svgs/close_tab.svg" alt="close" id="close">
            </li>
          </template>
          <template id="item">
-           <li class="item fade-in box">
+           <li class="item fade-in">
             <img src="./assets/svgs/checkbox_hallow.svg" alt="Not completed" class="checkbox-empty">
             <img style="display: none;" src="./assets/svgs/checkbox.svg" alt="Mark as complete" class="checkbox">
             <p class="content"></p>
@@ -84,7 +84,7 @@
            </li>
          </template>
          <template id="placeholder-item">
-           <li class="placeholder-item item box">
+           <li class="placeholder-item item">
          </template>
      </main>
   </body>

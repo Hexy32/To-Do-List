@@ -14,9 +14,9 @@ export default class TabList {
   #MAX_TABS: number
 
   constructor(MAX_TABS = 10) {
-    addTabButton.parentElement?.addEventListener('click', (e) => {
+    addTabButton.parentNode?.addEventListener('click', (e) => {
       if (e.target instanceof Element && e.target.tagName === 'LI') {
-        if (e.target.classList.value === 'add-tab grow') {
+        if (e.target.id === 'add-tab') {
           this.createTab()
         } else {
           this.selectTab(e.target.id)
@@ -61,18 +61,26 @@ export default class TabList {
     for (let i = 0; i < this.tabs.length; i++) {
       const tab = this.tabs[i]
 
-      if (tab.selected) {
-        function getIndex() {
-          if (i === 0) return i + 1
-          return i - 1
-        }
-
-        this.selectTab(this.tabs[getIndex()].id)
-      }
-
       if (tab.id === tabId) {
-        this.tabs[i].element.remove()
-        this.tabs.splice(i, 1)
+        tab.element.classList.add('closing')
+
+        tab.element.addEventListener(
+          'animationend',
+          () => {
+            if (tab.selected) {
+              function getIndex() {
+                if (i === 0) return i + 1
+                return i - 1
+              }
+
+              this.selectTab(this.tabs[getIndex()].id)
+            }
+
+            this.tabs[i].element.remove()
+            this.tabs.splice(i, 1)
+          },
+          { once: true }
+        )
       }
     }
   }

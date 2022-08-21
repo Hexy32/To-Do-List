@@ -12,7 +12,7 @@ bundleElectronApp({
   appVersion: '1.0.0',
   arch: 'x64',
   executableName: 'todo',
-  icon: 'assets/logos/64x64.png',
+  icon: 'assets/logos/128x128.ico',
   name: 'To Do',
   out: 'out',
   overwrite: 'true',

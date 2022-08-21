@@ -1,0 +1,14 @@
+.item {
+  scroll-snap-align: start;
+  background-color: var(--box-color);
+  border-radius: var(--border-radius);
+  padding: 10px;
+  height: 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  transition: 500ms ease;
+  opacity: 1;
+  overflow: show;
+}

@@ -4,13 +4,15 @@
   "description": "A simple to-do list with tabs",
   "main": "./build/server/main.js",
   "scripts": {
-    "build": "npm run compile && npm run bundle && npm run start",
+    "build": "npm run compile && npm run bundle && npm run start && npm run sass",
     "compile": "npx -p typescript tsc -b",
+    "sass": "npx sass sass/style.scss:build/css/style.css",
     "bundle": "npx webpack --config webpack.config.js",
     "start": "electron .",
     "package": "npm run compile && npm run bundle && node package.js",
     "watch-tsc": "npx -p typescript tsc -b --watch",
     "watch-webpack": "npx webpack --config webpack.config.js --watch --devtool source-map --progress --mode development",
+    "watch-sass": "npx sass sass/style.scss:build/css/style.css --watch",
     "dev": "concurrently -n w: npm:watch-*"
   },
   "repository": "https://hexy32.github.io/todo-list-version2/",
