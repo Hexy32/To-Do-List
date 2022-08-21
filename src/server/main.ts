@@ -19,9 +19,8 @@ function createWindow() {
     },
   })
 
-  mainWindow.maximize()
   mainWindow.loadFile('index.html')
-  mainWindow.webContents.openDevTools()
+  mainWindow.maximize()
 
   ipcMain.on('maximize', () => {
     mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()
