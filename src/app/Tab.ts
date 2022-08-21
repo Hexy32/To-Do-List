@@ -50,7 +50,7 @@ export default class Tab {
     })
     this.#input.addEventListener('keyup', (e) => {
       this.name = this.#input.value
-      this.updateName()
+      this.updateName(false)
       if (e.key == 'Enter') {
         this.#input.blur()
       }
@@ -77,7 +77,9 @@ export default class Tab {
       this.#input.value = this.name
     } else {
       this.name = this.#input.value
-      tabTitle.value = this.name
+      if (this.selected) {
+        tabTitle.value = this.name
+      }
     }
   }
 }
