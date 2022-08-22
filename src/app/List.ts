@@ -20,6 +20,7 @@ export default class List {
 
     this.createBlankItems()
   }
+
   updateHTML() {
     const loadedItems = this.items
     this.items = []
@@ -30,7 +31,6 @@ export default class List {
 
   createItems(items: Item[]) {
     items.forEach((item: Item) => {
-      this.removeBlankItem()
       this.createItem(item.content, item.id, item.isStarred, item.isDone)
     })
   }
@@ -52,10 +52,7 @@ export default class List {
     const item = new Item(content, id, isStarred, isDone)
 
     this.appendItem(item)
-
     this.setupInput(item)
-
-    HTMLlist!.scrollTop = HTMLlist!.scrollHeight
   }
 
   private appendItem(item: Item) {

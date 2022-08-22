@@ -7,6 +7,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
 window.addEventListener('DOMContentLoaded', () => {
   document
+    .querySelector<HTMLDivElement>('.windows-buttons')!
+    .classList.remove('hidden')
+  document
     .getElementById('close-button')!
     .addEventListener('click', window.close)
   document

@@ -1,9 +1,9 @@
 :root {
   --box-color: #ffffff93;
-  --background-color: linear-gradient(40deg, #272727 10%, #272727);
-  --box-color-completed: rgba(39, 255, 6, 0.333);
-  --box-color-starred: rgba(255, 255, 6, 0.333);
-  --box-color-completed-starred: rgba(168, 255, 6, 0.333);
+  --background-color: rgb(29, 29, 29);
+  --box-color-completed: #00c0fbb4;
+  --box-color-starred: var(--box-color);
+  --box-color-completed-starred: var(--box-color-completed);
   --border-radius: 7px;
   --box-color-empty: linear-gradient(
     90deg,
@@ -49,4 +49,8 @@ input:focus {
   box-sizing: inherit;
   margin: 0;
   padding: 0;
+}
+
+img {
+  -webkit-user-drag: none;
 }

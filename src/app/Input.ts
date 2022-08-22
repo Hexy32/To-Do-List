@@ -4,6 +4,7 @@ const emptyStarSVG = document.querySelectorAll(
   '.input-star'
 )[0] as HTMLImageElement
 const starSVG = document.querySelectorAll('.input-star')[1] as HTMLImageElement
+const HTMLlist = document.getElementById('list')
 
 //Get the current list
 import { currentList as list } from './TabList.js'
@@ -56,6 +57,8 @@ export default class Input {
 
       //Main item creation
       list.createItem(this.value, undefined, this.isStarred)
+      HTMLlist!.scrollTop = HTMLlist!.scrollHeight
+
       this.clear()
     })
   }

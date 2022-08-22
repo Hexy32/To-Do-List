@@ -165,17 +165,6 @@ export default class TabList {
 
     if (selectTabId) this.selectTab(selectTabId)
   }
-  /*
-  // Update stats
-  updateStats() {
-
-    }
-  }
-
-  update() {
-    this.updateStats()
-    setTimeout(() => this.update(), 500)
-  } */
 
   update() {
     if (

@@ -32,7 +32,7 @@
     white-space: nowrap;
   }
 
-  .completed > .content {
+  &.completed > .content {
     position: relative;
     text-decoration: line-through;
   }
