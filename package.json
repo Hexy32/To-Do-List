@@ -1,35 +1,36 @@
 {
-  "name": "to-do-list",
-  "version": "1.0.0",
-  "description": "A simple to-do list with tabs",
-  "main": "./build/server/main.js",
-  "scripts": {
-    "build": "npm run compile && npm run bundle && npm run start && npm run sass",
-    "compile": "npx -p typescript tsc -b",
-    "sass": "npx sass sass/style.scss:build/css/style.css",
-    "bundle": "npx webpack --config webpack.config.js",
-    "start": "electron .",
-    "package": "npm run compile && npm run bundle && node package.js",
-    "watch-tsc": "npx -p typescript tsc -b --watch",
-    "watch-webpack": "npx webpack --config webpack.config.js --watch --devtool source-map --progress --mode development",
-    "watch-sass": "npx sass sass/style.scss:build/css/style.css --watch",
-    "dev": "concurrently -n w: npm:watch-*"
-  },
-  "repository": "https://hexy32.github.io/todo-list-version2/",
-  "keywords": [
-    "electron",
-    "todo",
-    "list",
-    "tabs"
-  ],
-  "author": "Hexy32",
-  "devDependencies": {
-    "@types/electron": "^1.6.10",
-    "concurrently": "^7.3.0",
-    "electron": "^20.0.1",
-    "electron-packager": "^15.5.1",
-    "typescript": "^4.7.4",
-    "webpack": "^5.74.0",
-    "webpack-cli": "^4.10.0"
-  }
+    "name": "to-do-list",
+    "version": "1.0.0",
+    "description": "A simple to-do list with tabs",
+    "main": "./build/server/main.js",
+    "scripts": {
+        "build": "npm run compile && npm run bundle && npm run start && npm run sass",
+        "build-for-web": "npm run compile && npm run bundle && npm run sass",
+        "compile": "npx -p typescript tsc -b",
+        "sass": "npx sass sass/style.scss:build/css/style.css",
+        "bundle": "npx webpack --config webpack.config.js",
+        "start": "electron .",
+        "package": "npm run compile && npm run bundle && node package.js",
+        "watch-tsc": "npx -p typescript tsc -b --watch",
+        "watch-webpack": "npx webpack --config webpack.config.js --watch --devtool source-map --progress --mode development",
+        "watch-sass": "npx sass sass/style.scss:build/css/style.css --watch",
+        "dev": "concurrently -n w: npm:watch-*"
+    },
+    "repository": "https://hexy32.github.io/todo-list-version2/",
+    "keywords": [
+        "electron",
+        "todo",
+        "list",
+        "tabs"
+    ],
+    "author": "Hexy32",
+    "devDependencies": {
+        "@types/electron": "^1.6.10",
+        "concurrently": "^7.3.0",
+        "electron": "^20.0.1",
+        "electron-packager": "^15.5.1",
+        "typescript": "^4.7.4",
+        "webpack": "^5.74.0",
+        "webpack-cli": "^4.10.0"
+    }
 }

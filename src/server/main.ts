@@ -10,6 +10,8 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     minWidth: 1000,
     minHeight: 700,
+    width: 1280,
+    height: 765,
     icon: 'assets/logos/64x64.png',
     darkTheme: true,
     frame: false,
@@ -20,7 +22,7 @@ function createWindow() {
   })
 
   mainWindow.loadFile('index.html')
-  mainWindow.maximize()
+  // mainWindow.maximize()
 
   ipcMain.on('maximize', () => {
     mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()
