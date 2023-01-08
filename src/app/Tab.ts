@@ -1,9 +1,8 @@
+import List from './List.js'
 import { tabList } from './app.js'
-import List from './List'
 
 const tabTemplate = document.getElementById('tab') as HTMLTemplateElement
-const tabTitle = document.querySelector('header')
-  ?.children[0] as HTMLInputElement
+const tabTitle = document.querySelector('header')?.children[0] as HTMLInputElement
 
 export default class Tab {
   element!: HTMLLIElement
@@ -16,12 +15,7 @@ export default class Tab {
   savedList!: List
   completed!: boolean
 
-  constructor(
-    name = 'Unnamed',
-    list: List,
-    id = `ID${Date.now()}`,
-    completed = false
-  ) {
+  constructor(name = 'Unnamed', list: List, id = `ID${Date.now()}`, completed = false) {
     this.selected = true
 
     this.createTab(name, list, id, completed)
@@ -60,7 +54,7 @@ export default class Tab {
     this.#close.addEventListener('click', () => {
       this.remove()
     })
-    this.#input.addEventListener('keyup', (e) => {
+    this.#input.addEventListener('keyup', e => {
       this.name = this.#input.value
       this.updateName(false)
       if (e.key == 'Enter') {
