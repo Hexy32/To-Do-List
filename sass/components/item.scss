@@ -1,0 +1,39 @@
+.item {
+  scroll-snap-align: start;
+  background-color: var(--box-color);
+  border-radius: var(--border-radius);
+  padding: 10px;
+  height: 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  transition: 500ms ease;
+  opacity: 1;
+  overflow: hidden;
+
+  .checkbox,
+  .checkbox-empty {
+    height: 27px;
+    width: 27px;
+    position: absolute;
+    cursor: pointer;
+  }
+  .deleteSVG {
+    min-width: 35px;
+    cursor: pointer;
+  }
+
+  .content {
+    margin-left: 30px;
+    flex-grow: 0;
+    overflow: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+
+  &.completed > .content {
+    position: relative;
+    text-decoration: line-through;
+  }
+}

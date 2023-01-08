@@ -1,0 +1,56 @@
+:root {
+  --box-color: #ffffff93;
+  --background-color: rgb(29, 29, 29);
+  --box-color-completed: #00c0fbb4;
+  --box-color-starred: var(--box-color);
+  --box-color-completed-starred: var(--box-color-completed);
+  --border-radius: 7px;
+  --box-color-empty: linear-gradient(
+    90deg,
+    rgba(236, 236, 236, 0.333),
+    rgba(236, 236, 236, 0.222) 53%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  --text-color: #2e2e2e;
+  --total-items: 6;
+}
+
+input {
+  border: none;
+  background: none;
+  text-align: center;
+  font-family: initial;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  width: 100%;
+  cursor: text;
+}
+
+input:focus {
+  outline: none;
+}
+
+.selected {
+  border-bottom: 2px var(--box-color);
+  margin-bottom: -2px;
+}
+
+.clicked-button {
+  background-color: rgba(254, 254, 254, 0.55);
+
+  box-shadow: none;
+  transform: scale(0.98);
+  transform: translateY(3px);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  -webkit-user-drag: none;
+}

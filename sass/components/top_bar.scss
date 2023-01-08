@@ -1,0 +1,65 @@
+.top-bar {
+  width: 100%;
+  background-color: var(--box-color);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  user-select: none;
+  -webkit-app-region: drag;
+
+  font-size: large;
+  justify-content: space-between;
+  align-items: center;
+
+  .page-title {
+    font-size: large;
+    margin-right: 14px;
+  }
+
+  .top-bar-list {
+    list-style: none;
+    display: flex;
+    gap: 5px;
+  }
+
+  .top-bar-list > * {
+    padding-inline: 5px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    -webkit-app-region: no-drag;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: 300ms ease-in-out;
+  }
+
+  .top-bar-list > *:hover {
+    background-color: var(--box-color);
+  }
+
+  .top-bar-list > li > img {
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .windows-buttons > li {
+    height: 35px;
+  }
+
+  .function-list > li > img {
+    border-radius: 5px;
+  }
+
+  .function-list > *:first-child:hover {
+    background: none;
+    cursor: default;
+  }
+}

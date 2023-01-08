@@ -1,0 +1,85 @@
+.todo-items {
+  list-style: none;
+  grid-area: items;
+  display: grid;
+  gap: 10px;
+  height: calc(
+    (3.5rem * var(--total-items)) + (10px * var(--total-items) - 10px)
+  );
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: Y mandatory;
+  scroll-behavior: smooth;
+
+  @import 'item';
+  @import 'placeholder_item';
+}
+
+.fade-in {
+  animation: item-fade-in 600ms forwards !important;
+}
+
+@keyframes item-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateX(500px);
+  }
+
+  10% {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation: item-fade-out 600ms forwards;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.completed {
+  background-color: var(--box-color-completed) !important;
+  transition: 200ms ease;
+  animation: completed 500ms forwards;
+}
+
+.starred {
+  background-color: var(--box-color-starred) !important;
+}
+
+.starred.completed {
+  background-color: var(--box-color-completed-starred) !important;
+}
+
+.star,
+.star-empty {
+  height: 35px;
+  min-width: 35px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.input-star {
+  margin-bottom: -45px;
+  opacity: 0.3;
+  z-index: 10;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.input-star:hover {
+  opacity: 1;
+}
+
+@keyframes completed {
+  50% {
+    transform: scale(0.97);
+  }
+
+  80% {
+    transform: scale(1.03);
+  }
+}
