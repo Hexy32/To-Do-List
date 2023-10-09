@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="./src/sass/style.scss" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <script src="./src/app/app.ts" type="module"></script>
+    <title>To Do List</title>
+  </head>
+
+  <body>
+    <!-- Top bar -->
+    <div class="top-bar">
+      <ul class="top-bar-list function-list">
+        <li><img src="/assets/logos/64x64.png" alt="" /></li>
+        <!--
+        <li>File</li>
+        <li>Edit</li>
+        <li>Share</li>
+        <li>About</li>
+          -->
+      </ul>
+      <h1 class="page-title">To Do List</h1>
+      <ul class="top-bar-list windows-buttons hidden">
+        <li id="minimize-button">
+          <img src="/assets/svgs/minimize.svg" alt="Minimize button" />
+        </li>
+        <li id="maximize-button">
+          <img src="/assets/svgs/maximize.svg" alt="Maximize button" />
+        </li>
+        <li id="close-button">
+          <img src="/assets/svgs/close.svg" alt="Close button" />
+        </li>
+      </ul>
+    </div>
+    <main class="main-wrapper">
+      <!-- Main page -->
+      <ul class="tabs" id="tabs">
+        <li class="add-tab grow tab" id="add-tab">+</li>
+      </ul>
+      <div class="content-wrapper">
+        <header class="box">
+          <input type="text" class="tab-title" />
+        </header>
+        <div class="settings-input-wrapper" id="settingsWrapper">
+          <img class="star-empty input-star" src="/assets/svgs/star_hallow.svg" alt="Star Item" />
+          <img
+            style="display: none"
+            class="star input-star"
+            src="/assets/svgs/star.svg"
+            alt="Unstar Item" />
+          <textarea
+            id="input"
+            type="text"
+            class="todo-input"
+            placeholder="Input text to begin..."></textarea>
+          <p class="info">
+            <span>To-Do Items: </span>
+            <span id="todo-items">0</span>
+          </p>
+          <p class="info">
+            <span>Completed Items: </span>
+            <span id="completed-items">0</span>
+          </p>
+          <p class="info">
+            <span>Total Items: </span>
+            <span id="total-items">0</span>
+          </p>
+          <p class="info clear-button" id="clear-button">
+            <span>Clear List</span>
+          </p>
+        </div>
+        <ul id="list" class="todo-items"></ul>
+      </div>
+      <template id="tab">
+        <li class="tab">
+          <img src="/assets/svgs/edit_tab.svg" alt="edit" id="edit" />
+          <input type="text" id="tab-input" />
+          <img src="/assets/svgs/close_tab.svg" alt="close" id="close" />
+        </li>
+      </template>
+      <template id="item">
+        <li class="item fade-in">
+          <img src="/assets/svgs/checkbox_hallow.svg" alt="Not completed" class="checkbox-empty" />
+          <img
+            style="display: none"
+            src="/assets/svgs/checkbox.svg"
+            alt="Mark as complete"
+            class="checkbox" />
+          <p class="content"></p>
+          <img src="/assets/svgs/star_hallow.svg" alt="Star item" class="star-empty" />
+          <img style="display: none" src="/assets/svgs/star.svg" alt="Unstar item" class="star" />
+          <img src="/assets/svgs/trashbin.svg" alt="Delete item" class="deleteSVG" />
+        </li>
+      </template>
+      <template id="placeholder-item"> <li class="placeholder-item item"></li></template>
+
+      <p class="build-version">ALPHA BUILD 0.5.3</p>
+    </main>
+  </body>
+</html>

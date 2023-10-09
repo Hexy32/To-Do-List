@@ -1,13 +1,12 @@
 const input = document.getElementById('input') as HTMLInputElement
 //Get the star in the input section
-const emptyStarSVG = document.querySelectorAll(
-  '.input-star'
-)[0] as HTMLImageElement
+const emptyStarSVG = document.querySelectorAll('.input-star')[0] as HTMLImageElement
 const starSVG = document.querySelectorAll('.input-star')[1] as HTMLImageElement
 const HTMLlist = document.getElementById('list')
 
 //Get the current list
-import { currentList as list } from './TabList.js'
+
+import { currentList as list } from './TabList'
 
 export default class Input {
   element: HTMLInputElement
@@ -51,7 +50,7 @@ export default class Input {
     })
 
     //Check for main input
-    this.element.addEventListener('keydown', (e) => {
+    this.element.addEventListener('keydown', e => {
       if (e.key !== 'Enter') return
       e.preventDefault()
 

@@ -3,8 +3,7 @@ import Tab from './Tab.js'
 
 const addTabButton = document.getElementById('add-tab') as HTMLLIElement
 const clearButton = document.getElementById('clear-button') as HTMLSpanElement
-const tabTitle = document.querySelector('header')
-  ?.children[0] as HTMLInputElement
+const tabTitle = document.querySelector('header')?.children[0] as HTMLInputElement
 
 //Define and export the current working list
 export let currentList: List
@@ -14,7 +13,7 @@ export default class TabList {
   #MAX_TABS: number
 
   constructor(MAX_TABS = 10) {
-    addTabButton.parentNode?.addEventListener('click', (e) => {
+    addTabButton.parentNode?.addEventListener('click', e => {
       if (e.target instanceof Element && e.target.tagName === 'LI') {
         if (e.target.id === 'add-tab') {
           this.createTab()
@@ -41,7 +40,7 @@ export default class TabList {
 
   selectTab(tabId: string) {
     if (this.currentTab().id === tabId) return
-    this.tabs.forEach((tab) => {
+    this.tabs.forEach(tab => {
       if (tab.id === tabId) {
         this.deselectTabs()
 
@@ -56,7 +55,7 @@ export default class TabList {
   }
 
   deselectTabs() {
-    this.tabs.forEach((tab) => {
+    this.tabs.forEach(tab => {
       tab.deselect()
     })
   }
@@ -120,13 +119,13 @@ export default class TabList {
   }
 
   clearSelectedTabs() {
-    this.tabs.forEach((tab) => {
+    this.tabs.forEach(tab => {
       tab.deselect()
     })
   }
 
   currentTab() {
-    const currentTab = this.tabs.find((tab) => tab.selected === true)
+    const currentTab = this.tabs.find(tab => tab.selected === true)
     if (currentTab) {
       return currentTab
     } else {
@@ -167,10 +166,7 @@ export default class TabList {
   }
 
   update() {
-    if (
-      currentList.items.every((item) => item.isDone === true) &&
-      currentList.items.length >= 1
-    ) {
+    if (currentList.items.every(item => item.isDone === true) && currentList.items.length >= 1) {
       this.completeTab()
     } else {
       this.unCompleteTab()
@@ -178,12 +174,8 @@ export default class TabList {
 
     if (currentList) {
       const todoItems = document.getElementById('todo-items') as HTMLSpanElement
-      const completedItems = document.getElementById(
-        'completed-items'
-      ) as HTMLSpanElement
-      const totalItems = document.getElementById(
-        'total-items'
-      ) as HTMLSpanElement
+      const completedItems = document.getElementById('completed-items') as HTMLSpanElement
+      const totalItems = document.getElementById('total-items') as HTMLSpanElement
 
       todoItems.textContent = JSON.stringify(currentList.todoItems)
       completedItems.textContent = JSON.stringify(currentList.completedItems)
@@ -202,7 +194,7 @@ export default class TabList {
   }
 
   tabTitle() {
-    tabTitle.addEventListener('keyup', (e) => {
+    tabTitle.addEventListener('keyup', e => {
       this.currentTab().updateName(true)
       if (e.key == 'Enter') {
         tabTitle.blur()

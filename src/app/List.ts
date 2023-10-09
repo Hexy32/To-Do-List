@@ -1,5 +1,5 @@
-import PlaceholderItem from './PlaceholderItem.js'
 import Item from './Item.js'
+import PlaceholderItem from './PlaceholderItem.js'
 
 const HTMLlist = document.getElementById('list')
 
@@ -10,10 +10,7 @@ export default class List {
 
   constructor(itemsPerPage = 6) {
     this.itemsPerPage = itemsPerPage
-    document.documentElement.style.setProperty(
-      '--total-items',
-      itemsPerPage.toString()
-    )
+    document.documentElement.style.setProperty('--total-items', itemsPerPage.toString())
 
     this.placeholderItems = []
     this.items = []
@@ -35,12 +32,7 @@ export default class List {
     })
   }
 
-  createItem(
-    content: string,
-    id?: string,
-    isStarred: boolean = false,
-    isDone: boolean = false
-  ) {
+  createItem(content: string, id?: string, isStarred: boolean = false, isDone: boolean = false) {
     if (content.trim() == '') return
 
     if (id == null) {
@@ -69,17 +61,14 @@ export default class List {
   }
 
   removeBlankItem() {
-    if (
-      this.totalItemsLength >= this.itemsPerPage &&
-      this.placeholderItems.length > 0
-    ) {
+    if (this.totalItemsLength >= this.itemsPerPage && this.placeholderItems.length > 0) {
       this.placeholderItems.pop()!.remove()
     }
   }
 
   deleteItem(item: Item) {
     item.remove()
-    const index = this.items.findIndex((i) => {
+    const index = this.items.findIndex(i => {
       return i.id === item.id
     })
 
@@ -113,9 +102,7 @@ export default class List {
 
   createBlankItems() {
     const numberOfBlanks =
-      this.items == undefined
-        ? this.itemsPerPage
-        : this.itemsPerPage - this.items.length
+      this.items == undefined ? this.itemsPerPage : this.itemsPerPage - this.items.length
 
     for (let i = 0; i < numberOfBlanks; i++) {
       const placeholderItem = new PlaceholderItem()
@@ -140,7 +127,7 @@ export default class List {
       data = JSON.parse(URLRawData.slice(1))
     }
 
-    data.forEach((item) => {
+    data.forEach(item => {
       item.element = listElem.querySelector(`#${item.id}`) as HTMLLIElement
     })
     this.createItems(data)
@@ -162,7 +149,7 @@ export default class List {
 
   get completedItems() {
     let x = 0
-    this.items.forEach((item) => {
+    this.items.forEach(item => {
       if (item.isDone !== true) return
       x++
     })
@@ -175,11 +162,11 @@ export default class List {
   }
 
   remove() {
-    this.items.forEach((item) => {
+    this.items.forEach(item => {
       item.remove()
     })
 
-    this.placeholderItems.forEach((placeholderItem) => {
+    this.placeholderItems.forEach(placeholderItem => {
       placeholderItem.remove()
     })
 
