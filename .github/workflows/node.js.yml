@@ -32,7 +32,7 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - name: Zip the folder
-      run: zip -j To_Do_List.zip build/To\ Do\ List-win32-x64
+      run: zip -j Todo_win32.zip build/To\ Do\ List-win32-x64\*
     - name: Create a release
       id: create_release
       uses: actions/create-release@v1
@@ -40,7 +40,7 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
       with:
         tag_name: Release
-        release_name: Latest Release
+        release_name: Latest Windows Release
         draft: false
         prerelease: false
     - name: Upload the zip file as an asset
