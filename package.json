@@ -3,15 +3,19 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "./src/server/main.js",
+  "main": "main.cjs",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "npm run pre-build && electron .",
+    "build": "npm run pre-build && node package.cjs",
+    "pre-build": "tsc && vite build"
   },
   "devDependencies": {
-    "sass": "^1.57.1",
-    "typescript": "^4.9.3",
-    "vite": "^4.0.0"
+    "electron": "^26.3.0",
+    "electron-packager": "^17.1.2",
+    "sass": "^1.69.0",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.11"
   }
 }
