@@ -5,13 +5,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "electron" ]
+    branches: ['electron']
   pull_request:
-    branches: [ "electron" ]
+    branches: ['electron']
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,35 +19,57 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - name: Install Wine
-      run: |
-        sudo apt install wine64
-    - run: npm ci
-    - run: npm run build --if-present
-    - name: Zip the folder
-      run: zip -j Todo_win32.zip build/To\ Do\ List-win32-x64\*
-    - name: Create a release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      with:
-        tag_name: Release
-        release_name: Latest Windows Release
-        draft: false
-        prerelease: false
-    - name: Upload the zip file as an asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./To_Do_List.zip
-        asset_name: To_Do_List.zip
-        asset_content_type: application/zip
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Install Wine
+        run: |
+          sudo apt install wine64
+      - run: npm ci
+      - run: npm run build --if-present
+      - name: Zip the Windows folder
+        run: zip -j todo_win32.zip todo-win32-x64\*
+      - name: Zip the Linux folder
+        run: zip -j todo_linux.zip todo-linux-x64\*
+      - name: Zip the Mac folder
+        run: zip -j todo_max.zip todo-darwin-x64\*
+      - name: Create a release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          tag_name: Release
+          release_name: Latest Release (Windows, Linux)
+          draft: false
+          prerelease: false
+      - name: Upload Windows zip file
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./todo_win32.zip
+          asset_name: todo_win32.zip
+          asset_content_type: application/zip
+      - name: Upload Linux zip file
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./todo_linux.zip
+          asset_name: todo_linux.zip
+          asset_content_type: application/zip
+      - name: Upload Mac zip file
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./todo_mac.zip
+          asset_name: todo_mac.zip
+          asset_content_type: application/zip
