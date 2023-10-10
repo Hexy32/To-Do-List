@@ -26,10 +26,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: Install Wine
+      uses: notlmn/setup-wine@v1
+      with:
+        wine-version: 6.0
     - run: npm ci
     - run: npm run build --if-present
-    - name: Run package.cjs
-      run: node package.cjs
     - name: Zip the folder
       run: zip -r To_Do_List.zip build/To\ Do\ List-win32-x64
     - name: Create a release
