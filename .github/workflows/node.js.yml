@@ -31,11 +31,11 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - name: Zip the Windows folder
-        run: zip -j todo_win32.zip build\todo-win32-x64\*
+        run: zip -j todo_win32.zip build/todo-win32-x64/*
       - name: Zip the Linux folder
-        run: zip -j todo_linux.zip build\todo-linux-x64\*
+        run: zip -j todo_linux.zip build/todo-linux-x64/*
       - name: Zip the Mac folder
-        run: zip -j todo_max.zip build\todo-darwin-x64\*
+        run: zip -j todo_max.zip build/todo-darwin-x64/*
       - name: Create a release
         id: create_release
         uses: actions/create-release@v1
