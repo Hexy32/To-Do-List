@@ -42,8 +42,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          tag_name: Release
-          release_name: Latest Release (Windows, Linux)
+          tag_name: Release v1.0.0-$ { { github.sha }}
+          release_name: Latest Releases
           draft: false
           prerelease: false
       - name: Upload Windows zip file
